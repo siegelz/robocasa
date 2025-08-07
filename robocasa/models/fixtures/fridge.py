@@ -3,6 +3,7 @@ from robocasa.models.fixtures import Fixture
 import robosuite.utils.transform_utils as T
 from robocasa.utils.object_utils import obj_inside_of
 
+
 class Fridge(Fixture):
     """
     Fridge fixture class
@@ -65,7 +66,7 @@ class Fridge(Fixture):
         if "drawer" in reg_type:
             # rack index not supported for drawers
             assert rack_index is None
-        
+
         region_names = []
         for reg_name in self.get_reset_region_names():
             if compartment not in reg_name:
@@ -79,7 +80,7 @@ class Fridge(Fixture):
                 # it is a shelf
                 if "shelf" not in reg_type:
                     continue
- 
+
             region_names.append(reg_name)
 
         reset_regions = {}
@@ -130,55 +131,55 @@ class Fridge(Fixture):
 
         return dict(sorted_regions)
 
-    def is_open(self, env, entity="fridge", th=0.90):
+    def is_open(self, env, compartment="fridge", th=0.90):
         """
         checks whether the fixture is open
         """
         joint_names = None
-        if entity == "fridge":
+        if compartment == "fridge":
             joint_names = self._fridge_door_joint_names
-        elif entity == "freezer":
+        elif compartment == "freezer":
             joint_names = self._freezer_door_joint_names
 
         return super().is_open(env, joint_names, th=th)
 
-    def is_closed(self, env, entity="fridge", th=0.005):
+    def is_closed(self, env, compartment="fridge", th=0.005):
         """
         checks whether the fixture is closed
         """
         joint_names = None
-        if entity == "fridge":
+        if compartment == "fridge":
             joint_names = self._fridge_door_joint_names
-        elif entity == "freezer":
+        elif compartment == "freezer":
             joint_names = self._freezer_door_joint_names
 
         return super().is_closed(env, joint_names, th=th)
 
-    def open_door(self, env, min=0.90, max=1.0, entity="fridge"):
+    def open_door(self, env, min=0.90, max=1.0, compartment="fridge"):
         """
         helper function to open the door. calls set_door_state function
         """
         joint_names = None
-        if entity == "fridge":
+        if compartment == "fridge":
             joint_names = self._fridge_door_joint_names
-        elif entity == "freezer":
+        elif compartment == "freezer":
             joint_names = self._freezer_door_joint_names
         self.set_joint_state(env=env, min=min, max=max, joint_names=joint_names)
 
-    def close_door(self, env, min=0.0, max=0.0, entity="fridge"):
+    def close_door(self, env, min=0.0, max=0.0, compartment="fridge"):
         """
         helper function to close the door. calls set_door_state function
         """
         joint_names = None
-        if entity == "fridge":
+        if compartment == "fridge":
             joint_names = self._fridge_door_joint_names
-        elif entity == "freezer":
+        elif compartment == "freezer":
             joint_names = self._freezer_door_joint_names
         self.set_joint_state(env=env, min=min, max=max, joint_names=joint_names)
 
     def get_reset_region_names(self):
         return self._fridge_reg_names + self._freezer_reg_names
-    
+
     def check_rack_contact(
         self,
         env,
@@ -188,7 +189,9 @@ class Fridge(Fixture):
     ):
         region_names = [
             name
-            for name in self.get_reset_regions(env, compartment=compartment, rack_index=rack_index)
+            for name in self.get_reset_regions(
+                env, compartment=compartment, rack_index=rack_index
+            )
         ]
 
         obj_pos = np.array(env.sim.data.body_xpos[env.obj_body_id[object_name]])

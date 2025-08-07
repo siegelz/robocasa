@@ -9,7 +9,7 @@ class TiltPan(Kitchen):
 
     Steps:
         1. Grip the pan handle securely.
-        2. Tilt the pan at an angle to move the bell pepper for 50 timesteps.
+        2. Tilt the pan at an angle to move the item for 25 timesteps.
         3. Return the pan to its original position on the stove.
     """
 
@@ -90,21 +90,21 @@ class TiltPan(Kitchen):
             and the pan is on the stove.
         """
 
-        bell_pepper_in_pan = OU.check_obj_in_receptacle(self, "obj", "obj_container")
+        item_in_pan = OU.check_obj_in_receptacle(self, "obj", "obj_container")
 
-        if self.success_time >= 50:
+        if self.success_time >= 25:
             if (
                 self.stove.check_obj_location_on_stove(
                     env=self, obj_name="obj_container", threshold=0.15
                 )
                 == self.knob
-                and bell_pepper_in_pan
+                and item_in_pan
             ):
                 return True
             else:
                 return False
 
-        if not bell_pepper_in_pan:
+        if not item_in_pan:
             return False
 
         pan_quat = self.sim.data.body_xquat[self.obj_body_id["obj_container"]]
@@ -115,10 +115,10 @@ class TiltPan(Kitchen):
         dot_product = np.clip(dot_product, -1.0, 1.0)
         tilt_angle = 2.0 * np.arccos(dot_product)
 
-        tilt_threshold = 0.52  # ~30 degrees
+        tilt_threshold = 0.3
 
         if tilt_angle > tilt_threshold:
             self.success_time += 1
 
-        if self.success_time < 50:
+        if self.success_time < 25:
             return False

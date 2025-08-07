@@ -259,7 +259,27 @@ from robocasa.environments.kitchen.multi_stage.making_toast.prepare_toast import
 from robocasa.environments.kitchen.multi_stage.making_toast.sweet_savory_toast_setup import (
     SweetSavoryToastSetup,
 )
-
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.clear_freezer import (
+    ClearFreezer,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.freeze_bottled_waters import (
+    FreezeBottledWaters,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.freeze_ice_tray import (
+    FreezeIceTray,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.maximize_freezer_space import (
+    MaximizeFreezerSpace,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.move_fridge_to_freezer import (
+    MoveFridgeToFreezer,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.reorganize_frozen_vegetables import (
+    ReorganizeFrozenVegetables,
+)
+from robocasa.environments.kitchen.multi_stage.managing_freezer_space.separate_freezer_rack import (
+    SeparateFreezerRack,
+)
 from robocasa.environments.kitchen.multi_stage.measuring_ingredients.choose_measuring_cup import (
     ChooseMeasuringCup,
 )

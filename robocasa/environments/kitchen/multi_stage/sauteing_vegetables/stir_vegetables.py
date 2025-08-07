@@ -5,11 +5,11 @@ class StirVegetables(Kitchen):
     """
     Stir the Vegetables: composite task for Sauteing Vegetables activity.
 
-    Simulates the task of retrieving a tong from the counter and using it to stir vegetables in a pot.
+    Simulates the task of retrieving a spatula from the counter and using it to stir vegetables in a pot.
 
     Steps:
-        1. Retrieve the tong from the counter.
-        2. Use the tong to simulate stirring the vegetables inside the pot.
+        1. Retrieve the spatula from the counter.
+        2. Use the spatula to simulate stirring the vegetables inside the pot.
         3. Stir the vegetables for 5 timesteps.
     """
 
@@ -45,7 +45,7 @@ class StirVegetables(Kitchen):
         veg2_lang = self.get_obj_lang("veg2")
         ep_meta["lang"] = (
             f"Put the {veg1_lang} and {veg2_lang} in the pot. "
-            f"Retrieve the tongs and lightly stir the vegetables in the pot."
+            f"Retrieve the spatula and lightly stir the vegetables in the pot."
         )
         ep_meta["refs"] = ep_meta.get("refs", {})
         ep_meta["refs"]["knob"] = self.knob
@@ -61,9 +61,9 @@ class StirVegetables(Kitchen):
 
         cfgs.append(
             dict(
-                name="tong",
-                obj_groups="tongs",
-                object_scale=1.35,
+                name="spatula",
+                obj_groups="spatula",
+                object_scale=[1, 1, 2],
                 placement=dict(
                     fixture=self.counter,
                     sample_region_kwargs=dict(ref=self.stove),
@@ -120,9 +120,9 @@ class StirVegetables(Kitchen):
             == self.knob
         )
 
-        tong_grasped = OU.check_obj_grasped(self, "tong")
+        spatula_grasped = OU.check_obj_grasped(self, "spatula")
 
-        if not tong_grasped:
+        if not spatula_grasped:
             return False
 
         objects_stirred = self._detect_stirring(["veg1", "veg2"])
@@ -134,10 +134,10 @@ class StirVegetables(Kitchen):
 
         return self.success_time == 5
 
-    def _detect_stirring(self, obj_names, movement_threshold=0.15):
+    def _detect_stirring(self, obj_names, movement_threshold=0.05):
         all_objects_stirred = True
-        tong = self.objects["tong"]
-        contact_with_tong = False
+        spatula = self.objects["spatula"]
+        contact_with_spatula = False
 
         for obj_name in obj_names:
             obj = self.objects[obj_name]
@@ -150,10 +150,10 @@ class StirVegetables(Kitchen):
 
             inside_pot = OU.check_obj_in_receptacle(self, obj_name, "pot")
 
-            if not contact_with_tong:
-                contact_with_tong = self.check_contact(tong, obj)
+            if not contact_with_spatula:
+                contact_with_spatula = self.check_contact(spatula, obj)
 
-            if not (movement_detected and inside_pot and contact_with_tong):
+            if not (movement_detected and inside_pot and contact_with_spatula):
                 all_objects_stirred = False
 
             setattr(self, f"prev_obj_pos_{obj_name}", obj_pos)

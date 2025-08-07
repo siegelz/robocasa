@@ -2563,7 +2563,7 @@ OBJ_CATEGORIES = dict(
     ),
     pickle_slice=dict(
         types=(),
-        graspable=True,
+        graspable=False,
         washable=False,
         microwavable=False,
         cookable=False,
