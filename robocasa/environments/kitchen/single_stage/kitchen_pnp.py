@@ -1380,3 +1380,70 @@ class PnPCounterToStandMixer(PnP):
         return self.stand_mixer.check_item_in_bowl(self, "obj") and OU.gripper_obj_far(
             self, "obj"
         )
+
+
+class PnPDrawerToCounter(PnP):
+    """
+    Class encapsulating the atomic task of moving an item from the drawer to the counter.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def _setup_kitchen_references(self):
+        super()._setup_kitchen_references()
+        self.drawer = self.register_fixture_ref(
+            "drawer", dict(id=FixtureType.TOP_DRAWER)
+        )
+        self.counter = self.register_fixture_ref(
+            "counter", dict(id=FixtureType.COUNTER, ref=self.drawer)
+        )
+        self.init_robot_base_ref = self.drawer
+
+    def _setup_scene(self):
+        super()._setup_scene()
+        self.drawer.open_door(self, min=1.0, max=1.0)
+
+    def get_ep_meta(self):
+        ep_meta = super().get_ep_meta()
+        obj_lang = self.get_obj_lang()
+        ep_meta[
+            "lang"
+        ] = f"Pick the {obj_lang} from the drawer and place it on the counter."
+        return ep_meta
+
+    def _get_obj_cfgs(self):
+        cfgs = []
+        cfgs.append(
+            dict(
+                name="obj",
+                obj_groups=("tool", "utensil"),
+                exclude_obj_groups=("reamer", "strainer", "cheese_grater"),
+                graspable=True,
+                placement=dict(
+                    fixture=self.drawer,
+                    size=(0.30, 0.25),
+                    pos=(0, -0.25),
+                ),
+            )
+        )
+
+        cfgs.append(
+            dict(
+                name="distr",
+                exclude_obj_groups=("tool", "utensil"),
+                placement=dict(
+                    fixture=self.counter,
+                    sample_region_kwargs=dict(
+                        ref=self.drawer,
+                    ),
+                    size=(0.5, 0.30),
+                    pos=("ref", -0.5),
+                ),
+            )
+        )
+        return cfgs
+
+    def _check_success(self):
+        on_counter = OU.check_obj_any_counter_contact(self, "obj")
+        return on_counter and OU.gripper_obj_far(self, "obj")

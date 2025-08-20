@@ -675,7 +675,8 @@ class Kitchen(ManipulationEnv, metaclass=KitchenEnvMeta):
                     break
 
                 except PlacementError as e:
-                    print(f"Placement error for auxiliary pair fixture: {e}")
+                    if macros.VERBOSE:
+                        print(f"Placement error for auxiliary pair fixture: {e}")
                     # retry both objects if one fails
                     for name in [base_name, aux_name]:
                         if name in self.fxtr_placements:
@@ -713,7 +714,8 @@ class Kitchen(ManipulationEnv, metaclass=KitchenEnvMeta):
                     success = True
                     break
                 except PlacementError as e:
-                    print(f"Placement error for fixture: {e}")
+                    if macros.VERBOSE:
+                        print(f"Placement error for fixture: {e}")
                     continue
 
             if not success:

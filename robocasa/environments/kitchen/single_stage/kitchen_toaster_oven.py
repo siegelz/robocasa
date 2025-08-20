@@ -101,15 +101,21 @@ class SlideToasterOvenRack(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         direction = "out" if self.should_pull else "in"
+
+        if "rack" in self.chosen_toaster_receptacle:
+            receptacle_type = "rack"
+        else:
+            receptacle_type = "tray"
+
         if self.toaster_oven.has_multiple_rack_levels():
             rack_pos = "top" if self.rack_level == 1 else "bottom"
             ep_meta[
                 "lang"
-            ] = f"Fully slide the toaster oven {rack_pos} {self.chosen_toaster_receptacle} {direction}."
+            ] = f"Fully slide the toaster oven {rack_pos} {receptacle_type} {direction}."
         else:
             ep_meta[
                 "lang"
-            ] = f"Fully slide the toaster oven {self.chosen_toaster_receptacle} {direction}."
+            ] = f"Fully slide the toaster oven {receptacle_type} {direction}."
         ep_meta["should_pull"] = self.should_pull
         ep_meta["rack_level"] = self.rack_level
         return ep_meta

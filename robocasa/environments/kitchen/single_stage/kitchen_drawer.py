@@ -342,4 +342,4 @@ class SlideDishwasherRack(Kitchen):
         if self.should_pull:
             return current_pos >= 0.95
         else:
-            return current_pos <= 0.10
+            return current_pos <= 0.05

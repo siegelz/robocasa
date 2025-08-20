@@ -17,6 +17,11 @@ if __name__ == "__main__":
         help="directory of new episodes to import",
         required=True,
     )
+    parser.add_argument(
+        "--use_new_datetag",
+        action="store_true",
+        help="use the new datetag rather than merge into existing one",
+    )
     args = parser.parse_args()
 
     base_dir = args.base_dir
@@ -52,6 +57,14 @@ if __name__ == "__main__":
                         copy_from = from_dir_l4
                         copy_to = os.path.join(base_dir_l3, date_tag)
                         print("DOES NOT EXIST!")
+                        print("COPY FROM:", copy_from)
+                        print("COPY TO:", copy_to)
+                        shutil.copytree(copy_from, copy_to)
+                        print()
+                    elif args.use_new_datetag:
+                        copy_from = from_dir_l4
+                        copy_to = os.path.join(base_dir_l3, date_tag)
+                        print("EXISTS (use new datatag)")
                         print("COPY FROM:", copy_from)
                         print("COPY TO:", copy_to)
                         shutil.copytree(copy_from, copy_to)
