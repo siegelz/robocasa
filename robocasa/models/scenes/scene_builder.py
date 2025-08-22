@@ -199,7 +199,7 @@ def create_fixtures(layout_config, style_config, rng=None):
                         auxiliary_fxtr_cfg["placement"]["sample_region_kwargs"] = dict(
                             ref=fxtr_config["name"]
                         )
-                        auxiliary_fxtr_cfg["placement"]["pos"][0] = "ref"
+                        # auxiliary_fxtr_cfg["placement"]["pos"][0] = "ref"
                         auxiliary_fxtr_cfg["placement"][
                             "reuse_region_from"
                         ] = fxtr_config["name"]

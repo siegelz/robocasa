@@ -100,12 +100,10 @@ def find_mg_datasets(task):
     latest_timestamp = sorted(all_timestamps)[-1]
 
     mg_run_path = os.path.join(mg_base_path, latest_timestamp)
-
     source_datasets = []
     for file in os.listdir(mg_run_path):
         if "demo.hdf5_temp_" in file:
             source_datasets.append(os.path.join(mg_run_path, file))
-
     output_dataset = os.path.join(mg_run_path, "demo_im128.hdf5")
 
     return source_datasets, output_dataset

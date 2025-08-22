@@ -65,7 +65,6 @@ class Fridge(Fixture):
             reg_type = tuple([reg_type])
             for t in reg_type:
                 assert t in ["shelf", "drawer"]
-
         region_names = []
         for reg_name in self.get_reset_region_names():
             if compartment not in reg_name:
@@ -192,7 +191,6 @@ class Fridge(Fixture):
             drawer_rack_index (int or None): if reg_type is "drawer", checks specific drawer rack by index
                 (0 = lowest, -1 = highest, -2 = second highest). If None, checks all drawer racks.
                 Ignored when reg_type is "door".
-
         Returns:
             bool: True if the fixture is open, False otherwise
         """
@@ -387,7 +385,6 @@ class Fridge(Fixture):
                 restricted_max_z = region_max_z
             else:
                 restricted_max_z = region_min_z + 0.9 * (region_max_z - region_min_z)
-
             if region_min_z <= obj_z <= restricted_max_z:
                 filtered_region_names.append(region_name)
 
@@ -415,13 +412,11 @@ class Fridge(Fixture):
         Args:
             env (MujocoEnv): environment
         """
-
         for compartment in ["fridge", "freezer"]:
             drawer_regions = []
             for reg_name in self._regions.keys():
                 if "drawer" in reg_name and compartment in reg_name:
                     drawer_regions.append(reg_name)
-
             for reg_name in drawer_regions:
                 if reg_name in self._regions:
                     geom_name = f"{self.naming_prefix}reg_{reg_name}"
