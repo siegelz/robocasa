@@ -213,6 +213,12 @@ class Kitchen(ManipulationEnv, metaclass=KitchenEnvMeta):
 
     EXCLUDE_STYLES = []
 
+    PROBLEMATIC_BLENDER_LID_STYLES = [
+        13,
+        29,
+        31,
+    ]
+
     OVEN_EXCLUDED_LAYOUTS = [
         1,
         3,

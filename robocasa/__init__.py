@@ -256,6 +256,21 @@ from robocasa.environments.kitchen.multi_stage.making_salads.prepare_cheese_stat
 from robocasa.environments.kitchen.multi_stage.making_salads.wash_lettuce import (
     WashLettuce,
 )
+from robocasa.environments.kitchen.multi_stage.making_smoothies.add_ice_cubes import (
+    AddIceCubes,
+)
+from robocasa.environments.kitchen.multi_stage.making_smoothies.add_sweetner import (
+    AddSweetener,
+)
+from robocasa.environments.kitchen.multi_stage.making_smoothies.blend_ingredients import (
+    BlendIngredients,
+)
+from robocasa.environments.kitchen.multi_stage.making_smoothies.place_straw import (
+    PlaceStraw,
+)
+from robocasa.environments.kitchen.multi_stage.making_smoothies.prepare_smoothie import (
+    PrepareSmoothie,
+)
 from robocasa.environments.kitchen.multi_stage.making_tea.arrange_tea_accompaniments import (
     ArrangeTeaAccompaniments,
 )
@@ -310,12 +325,29 @@ from robocasa.environments.kitchen.multi_stage.measuring_ingredients.choose_meas
 from robocasa.environments.kitchen.multi_stage.measuring_ingredients.weigh_ingredients import (
     WeighIngredients,
 )
-
 from robocasa.environments.kitchen.multi_stage.meat_preparation.prep_for_tenderizing import (
     PrepForTenderizing,
 )
 from robocasa.environments.kitchen.multi_stage.meat_preparation.prep_marinating_meat import (
     PrepMarinatingMeat,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.filter_microwavable_item import (
+    FilterMicrowavableItem,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.microwave_correct_meal import (
+    MicrowaveCorrectMeal,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.microwave_defrost_meat import (
+    MicrowaveDefrostMeat,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.place_microwave_safe_item import (
+    PlaceMicrowaveSafeItem,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.reheat_meal import (
+    ReheatMeal,
+)
+from robocasa.environments.kitchen.multi_stage.microwaving_food.return_heated_food import (
+    ReturnHeatedFood,
 )
 from robocasa.environments.kitchen.multi_stage.preparing_marinade.gather_marinade_ingredients import (
     GatherMarinadeIngredients,
