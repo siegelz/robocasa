@@ -250,6 +250,15 @@ from robocasa.environments.kitchen.multi_stage.loading_fridge.place_vegies_in_dr
 from robocasa.environments.kitchen.multi_stage.loading_fridge.rearrange_fridge_items import (
     RearrangeFridgeItems,
 )
+from robocasa.environments.kitchen.multi_stage.making_juice.choose_ripe_fruit import (
+    ChooseRipeFruit,
+)
+from robocasa.environments.kitchen.multi_stage.making_juice.juice_fruit_reamer import (
+    JuiceFruitReamer,
+)
+from robocasa.environments.kitchen.multi_stage.making_juice.fill_blender_jug import (
+    FillBlenderJug,
+)
 from robocasa.environments.kitchen.multi_stage.making_salads.prepare_cheese_station import (
     PrepareCheeseStation,
 )
@@ -348,6 +357,9 @@ from robocasa.environments.kitchen.multi_stage.microwaving_food.reheat_meal impo
 )
 from robocasa.environments.kitchen.multi_stage.microwaving_food.return_heated_food import (
     ReturnHeatedFood,
+)
+from robocasa.environments.kitchen.multi_stage.preparing_marinade.blend_marinade import (
+    BlendMarinade,
 )
 from robocasa.environments.kitchen.multi_stage.preparing_marinade.gather_marinade_ingredients import (
     GatherMarinadeIngredients,
@@ -694,6 +706,9 @@ from robocasa.environments.kitchen.multi_stage.washing_dishes.dry_dishes import 
 )
 from robocasa.environments.kitchen.multi_stage.washing_dishes.dry_drinkware import (
     DryDrinkware,
+)
+from robocasa.environments.kitchen.multi_stage.washing_dishes.dump_leftovers import (
+    DumpLeftovers,
 )
 from robocasa.environments.kitchen.multi_stage.washing_dishes.load_dishwasher import (
     LoadDishwasher,

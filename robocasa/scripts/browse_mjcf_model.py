@@ -278,7 +278,7 @@ if __name__ == "__main__":
         mjcf_path_list = []
         for root, dirs, files in os.walk(args.mjcf):
             for file in files:
-                if file.endswith(".xml") and "Lid" in root:
+                if file.endswith(".xml"):
                     mjcf_path_list.append(os.path.join(root, file))
     else:
         mjcf_path_list = [args.mjcf]

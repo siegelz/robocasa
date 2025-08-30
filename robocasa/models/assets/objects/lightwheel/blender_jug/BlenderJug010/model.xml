@@ -1,0 +1,62 @@
+<mujoco model="model">
+  <option timestep="0.002" gravity="0.0 0.0 -9.81"/>
+  <compiler angle="radian"/>
+  <asset>
+    <mesh file="visuals/blade.obj" name="blade_vis"/>
+    <mesh file="visuals/pitcher.obj" name="pitcher_vis"/>
+    <mesh file="visuals/pitcher_main.obj" name="pitcher_main_vis"/>
+    <texture file="visuals/T_BC001.png" name="pitcher_material" type="2d"/>
+    <material name="pitcher_material" rgba="1 1 1 1.0" texture="pitcher_material" shininess="0.4472135901451111" specular="0.3103448502657381"/>
+    <texture file="visuals/T_BC001.png" name="blade_material" type="2d"/>
+    <material name="blade_material" rgba="1 1 1 1.0" texture="blade_material" shininess="0.4472135901451111" specular="0.3103448502657381"/>
+    <material name="pitcher_main_material" rgba="0.0737990140914917 0.0737990140914917 0.0737990140914917 0.699999988079071" shininess="0.5" specular="0.33333333333333337"/>
+  </asset>
+  <default>
+    <default class="visual">
+      <geom conaffinity="0" contype="0" group="1" type="mesh"/>
+    </default>
+    <default class="collision">
+      <geom group="0" rgba="0.5 0 0 0.5" density="1000" solref="0.004 1" solimp="0.998 0.998 0.001"/>
+    </default>
+    <default class="spawn">
+      <geom group="0" rgba="1 1 1 0.5" contype="0" conaffinity="0"/>
+      <site group="0" rgba="1 1 1 0.5"/>
+    </default>
+    <default class="region">
+      <geom group="1" conaffinity="0" contype="0" rgba="0 1 0 0" mass="0"/>
+    </default>
+  </default>
+  <worldbody>
+    <body>
+      <body name="object">
+        <body name="pitcher">
+          <geom mesh="pitcher_vis" type="mesh" solimp="0.998 0.998 0.001" solref="0.001 1" friction="0.95 0.3 0.1" class="visual" material="pitcher_material"/>
+          <geom class="collision" type="box" pos="0.10735267 -0.01187913 0.12756005" size="0.008810347877442837 0.01337229460477829 0.05532687529921532" quat="0.9955431222915649 -0.0037091949488967657 -0.0444367341697216 -0.08309933543205261" name="pitcher_handle_0"/>
+          <geom class="collision" type="box" pos="0.07499458 -0.00637261 0.04280140" size="0.022820470854640007 0.012766306288540363 0.008864781819283962" quat="0.9837000966072083 -0.013307042419910431 -0.15942050516605377 -0.08211079239845276" name="pitcher_handle_1"/>
+          <geom class="collision" type="box" pos="0.08690926 -0.00843251 0.18982184" size="0.021085254848003387 0.013875750824809074 0.009293685667216778" quat="0.9774189591407776 0.016214268282055855 0.19424955546855927 -0.08158648014068604" name="pitcher_handle_2"/>
+          <geom type="cylinder" pos="-0.01625181 0.00846700 -0.01524351" size="0.012912442907691002 0.004275952931493521" quat="1.0 0.0 0.0 0.0" class="collision"/>
+          <geom class="collision" type="box" pos="0.10627019 -0.01163048 0.06046877" size="0.01726957969367504 0.012766306288540363 0.008864779956638813" quat="0.8413264155387878 -0.0445810966193676 -0.5340885519981384 -0.07022666186094284" name="pitcher_handle_3"/>
+          <body name="blade">
+            <geom mesh="blade_vis" type="mesh" solimp="0.998 0.998 0.001" solref="0.001 1" friction="0.95 0.3 0.1" class="visual" material="blade_material"/>
+            <geom type="cylinder" pos="-0.01625181 0.00846700 -0.00198914" size="0.010120311751961708 0.006583241745829582" quat="1.0 0.0 0.0 0.0" class="collision"/>
+          </body>
+          <body name="pitcher_main">
+            <geom class="region" type="cylinder" size="0.04703454300761223 0.09612751007080078" pos="-0.01505019 0.00881461 0.10539652" rgba="0 0 1 0.5" name="reg_int"/>
+            <geom mesh="pitcher_main_vis" type="mesh" solimp="0.998 0.998 0.001" solref="0.001 1" friction="0.95 0.3 0.1" class="visual" material="pitcher_main_material"/>
+            <geom type="box" pos="-0.01369678 0.08454736 0.11077496" size="0.029443033039569855 0.005123327020555735 0.1273406445980072" quat="0.9985349774360657 -0.054110053926706314 -0.0 0.0" class="collision"/>
+            <geom type="box" pos="-0.01369678 -0.06541527 0.10958939" size="0.029443033039569855 0.0045418147929012775 0.12841808795928955" quat="0.9985349774360657 0.05411006137728691 0.0 0.0" class="collision"/>
+            <geom type="box" pos="-0.08937243 0.00839083 0.10954997" size="0.029443033039569855 0.003922209609299898 0.12844577431678772" quat="0.7060708999633789 0.038261592388153076 -0.03826158866286278 -0.7060708403587341" class="collision"/>
+            <geom type="box" pos="0.05910120 0.00839084 0.10970971" size="0.029443033039569855 0.003990079741925001 0.12832491099834442" quat="0.7060708999633789 -0.03826158493757248 0.03826158493757248 -0.7060708403587341" class="collision"/>
+            <geom type="box" pos="0.03681379 0.06312978 0.10977786" size="0.029443033039569855 0.005239774938672781 0.1283605694770813" quat="0.9271512031555176 -0.050241824239492416 0.020091267302632332 -0.37075966596603394" class="collision"/>
+            <geom type="box" pos="-0.06582158 -0.04459222 0.10960838" size="0.029443033039569855 0.004761549644172192 0.12841331958770752" quat="0.9271512031555176 0.05024183169007301 -0.02009126916527748 -0.37075966596603394" class="collision"/>
+            <geom type="box" pos="0.03456071 -0.04548651 0.10955570" size="0.029443034902215004 0.004448140971362591 0.12839438021183014" quat="0.9296003580093384 0.05037453770637512 0.019756143912672997 0.36457544565200806" class="collision"/>
+            <geom type="box" pos="-0.06607580 0.06412538 0.11124434" size="0.029443034902215004 0.005722026340663433 0.1269514411687851" quat="0.9296003580093384 -0.050374530255794525 -0.019756142050027847 0.36457544565200806" class="collision"/>
+            <geom type="cylinder" pos="-0.01625181 0.00846700 -0.01809709" size="0.057328250259160995 0.0008909525349736214" quat="1.0 0.0 0.0 0.0" class="collision"/>
+          </body>
+        </body>
+        <geom class="region" name="reg_bbox" density="0" type="box" pos="0.0 0.0093525 0.1070215" size="0.1203 0.0933 0.13165000000000002"/>
+      </body>
+      <site rgba="0 1 0 0" size="0.005" pos="-0.013844 0.010204 0.231273" name="anchor_site"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -2863,6 +2863,25 @@ OBJ_CATEGORIES = dict(
             ],
         ),
     ),
+    blender_jug=dict(
+        types=("receptacle"),
+        graspable=True,
+        washable=True,
+        microwavable=False,
+        cookable=False,
+        fridgable=True,
+        freezable=False,
+        lightwheel=dict(
+            scale=0.85,
+            # Exclude: 015, 025, 021 (dont have handles)
+            exclude=[
+                "BlenderJug003",  # scale is off
+                "BlenderJug015",
+                "BlenderJug021",
+                "BlenderJug025",
+            ],
+        ),
+    ),
 )
 
 
