@@ -82,6 +82,9 @@ from robocasa.environments.kitchen.multi_stage.boiling.start_electric_kettle imp
 )
 from robocasa.environments.kitchen.multi_stage.boiling.veggie_boil import VeggieBoil
 from robocasa.environments.kitchen.multi_stage.brewing.arrange_tea import ArrangeTea
+from robocasa.environments.kitchen.multi_stage.brewing.deliver_brewed_coffee import (
+    DeliverBrewedCoffee,
+)
 from robocasa.environments.kitchen.multi_stage.brewing.kettle_boiling import (
     KettleBoiling,
 )
@@ -90,6 +93,9 @@ from robocasa.environments.kitchen.multi_stage.brewing.organize_coffee_condiment
 )
 from robocasa.environments.kitchen.multi_stage.brewing.prepare_coffee import (
     PrepareCoffee,
+)
+from robocasa.environments.kitchen.multi_stage.brewing.sweeten_coffee import (
+    SweetenCoffee,
 )
 from robocasa.environments.kitchen.multi_stage.broiling_fish.oven_broil_fish import (
     OvenBroilFish,
@@ -430,6 +436,15 @@ from robocasa.environments.kitchen.multi_stage.organizing_recycling.recycle_soda
 from robocasa.environments.kitchen.multi_stage.organizing_recycling.recycle_stacked_yogurt import (
     RecycleStackedYogurt,
 )
+from robocasa.environments.kitchen.multi_stage.organizing_utensils.arrange_utensils_by_type import (
+    ArrangeUtensilsByType,
+)
+from robocasa.environments.kitchen.multi_stage.organizing_utensils.cluster_utensils_in_drawer import (
+    ClusterUtensilsInDrawer,
+)
+from robocasa.environments.kitchen.multi_stage.organizing_utensils.organize_metalic_utensils import (
+    OrganizeMetallicUtensils,
+)
 from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_dessert import (
     PackDessert,
 )
@@ -441,12 +456,6 @@ from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_fruit_contai
 )
 from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_identical_lunches import (
     PackIdenticalLunches,
-)
-from robocasa.environments.kitchen.multi_stage.organizing_utensils.arrange_utensils_by_type import (
-    ArrangeUtensilsByType,
-)
-from robocasa.environments.kitchen.multi_stage.organizing_utensils.organize_metalic_utensils import (
-    OrganizeMetallicUtensils,
 )
 from robocasa.environments.kitchen.multi_stage.preparing_hot_chocolate.add_marshmallow import (
     AddMarshmallow,
@@ -568,6 +577,9 @@ from robocasa.environments.kitchen.multi_stage.serving_beverages.prepare_cocktai
 )
 from robocasa.environments.kitchen.multi_stage.serving_beverages.prepare_drink_station import (
     PrepareDrinkStation,
+)
+from robocasa.environments.kitchen.multi_stage.serving_beverages.serve_meal_juice import (
+    ServeMealJuice,
 )
 from robocasa.environments.kitchen.multi_stage.serving_beverages.setup_soda_bowl import (
     SetupSodaBowl,

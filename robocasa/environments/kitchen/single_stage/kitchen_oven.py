@@ -25,7 +25,7 @@ class PreheatOven(Kitchen):
         super()._setup_scene()
 
     def _check_success(self):
-        return self.oven.get_state()["temperature"] >= 0.1
+        return self.oven.get_state()["temperature"] >= 0.25
 
 
 class SlideOvenRack(Kitchen):
