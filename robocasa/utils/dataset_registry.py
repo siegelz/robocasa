@@ -486,6 +486,30 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         ),
         horizon=200,
     ),
+    OrganizeMugsByHandle=dict(  # was previously composite
+        train=dict(
+            human_path="v0.5/train/composite/OrganizeMugsByHandle/20250718",
+        ),
+        horizon=900,
+    ),
+    MakeIcedCoffee=dict(  # was previously composite
+        train=dict(
+            human_path="v0.5/train/composite/MakeIcedCoffee/20250801",
+        ),
+        horizon=500,
+    ),
+    CheesyBread=dict(  # was previously composite
+        train=dict(
+            human_path="v0.5/train/composite/CheesyBread/20250714",
+        ),
+        horizon=500,
+    ),
+    LowerHeat=dict(  # was previously composite
+        train=dict(
+            human_path="v0.5/train/composite/LowerHeat/20250805",
+        ),
+        horizon=500,
+    ),
 )
 
 
@@ -700,12 +724,6 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
         ),
         horizon=2900,
     ),
-    CheesyBread=dict(
-        train=dict(
-            human_path="v0.5/train/composite/CheesyBread/20250714",
-        ),
-        horizon=500,
-    ),
     ChooseMeasuringCup=dict(
         train=dict(
             human_path="v0.5/train/composite/ChooseMeasuringCup/20250718",
@@ -852,6 +870,12 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
             human_path="v0.5/train/composite/DefrostByCategory/20250716",
         ),
         horizon=2200,
+    ),
+    DeliverBrewedCoffee=dict(
+        train=dict(
+            human_path="v0.5/train/composite/DeliverBrewedCoffee/20250904",
+        ),
+        horizon=700,
     ),
     DeliverStraw=dict(
         train=dict(
@@ -1123,12 +1147,6 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
         ),
         horizon=1000,
     ),
-    LowerHeat=dict(
-        train=dict(
-            human_path="v0.5/train/composite/LowerHeat/20250805",
-        ),
-        horizon=500,
-    ),
     MakeFruitBowl=dict(
         train=dict(
             human_path="v0.5/train/composite/MakeFruitBowl/20250723",
@@ -1143,12 +1161,6 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
             human_path="v0.5/test/composite/MakeIceLemonade/20250813",
         ),
         horizon=2000,
-    ),
-    MakeIcedCoffee=dict(
-        train=dict(
-            human_path="v0.5/train/composite/MakeIcedCoffee/20250801",
-        ),
-        horizon=500,
     ),
     MakeLoadedPotato=dict(
         train=dict(
@@ -1281,12 +1293,6 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
             human_path="v0.5/train/composite/OrganizeMetallicUtensils/20250806",
         ),
         horizon=2100,
-    ),
-    OrganizeMugsByHandle=dict(
-        train=dict(
-            human_path="v0.5/train/composite/OrganizeMugsByHandle/20250718",
-        ),
-        horizon=900,
     ),
     OrganizeVegetables=dict(
         train=dict(
@@ -1992,6 +1998,12 @@ MULTI_STAGE_TASK_DATASETS = OrderedDict(
             human_path="v0.5/train/composite/SweetSavoryToastSetup/20250721",
         ),
         horizon=2700,
+    ),
+    SweetenCoffee=dict(
+        train=dict(
+            human_path="v0.5/train/composite/SweetenCoffee/20250904",
+        ),
+        horizon=1300,
     ),
     SweetenHotChocolate=dict(
         train=dict(
