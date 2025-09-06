@@ -3,7 +3,7 @@ from robocasa.environments.kitchen.kitchen import *
 
 class ToastOnCorrectRack(Kitchen):
     """
-    ToastOnCorrectRack: Toast bread and meat in a toaster oven on the correct rack level.
+    ToastOnCorrectRack: composite task for Toasting Bread activity.
 
     Steps:
         1. Open the toaster oven door.
@@ -13,11 +13,53 @@ class ToastOnCorrectRack(Kitchen):
 
     # Exclude styles with 1 rack only
     EXCLUDE_STYLES = [
-        1, 2, 3, 4, 5, 6, 8, 9, 10, 11,
-        12, 13, 14, 15, 16, 17, 18, 19, 22, 26, 27, 29, 30,
-        31, 32, 33, 34, 35, 38, 40, 41, 42, 43,
-        45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
-        56, 58, 59, 60
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        22,
+        26,
+        27,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        38,
+        40,
+        41,
+        42,
+        43,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        56,
+        58,
+        59,
+        60,
     ]
 
     def __init__(self, enable_fixtures=None, *args, **kwargs):
@@ -47,7 +89,9 @@ class ToastOnCorrectRack(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        receptacle_type = "rack" if "rack" in self.toaster_oven.rack_or_tray(self) else "tray"
+        receptacle_type = (
+            "rack" if "rack" in self.toaster_oven.rack_or_tray(self) else "tray"
+        )
         bread_lang = self.get_obj_lang("bread")
         meat_lang = self.get_obj_lang("meat")
 
@@ -57,7 +101,7 @@ class ToastOnCorrectRack(Kitchen):
         else:
             bread_direction = "top"
             meat_direction = "bottom"
-        
+
         ep_meta["lang"] = (
             f"Open the toaster oven door. Place the {bread_lang} on the {bread_direction} {receptacle_type} in the toaster oven "
             f"and place the {meat_lang} on the {meat_direction} {receptacle_type}."
@@ -114,5 +158,7 @@ class ToastOnCorrectRack(Kitchen):
         meat_on_rack = self.toaster_oven.check_rack_contact(
             self, "meat", rack_level=self.meat_rack_level
         )
-        obj_gripper_far = OU.gripper_obj_far(self, "bread") and OU.gripper_obj_far(self, "meat")
+        obj_gripper_far = OU.gripper_obj_far(self, "bread") and OU.gripper_obj_far(
+            self, "meat"
+        )
         return bread_on_rack and meat_on_rack and obj_gripper_far

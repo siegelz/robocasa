@@ -3,7 +3,7 @@ from robocasa.environments.kitchen.kitchen import *
 
 class ToastBagel(Kitchen):
     """
-    ToastBagel: Toast a bagel in the toaster oven.
+    ToastBagel: composite task for Toasting Bread activity.
 
     Steps:
         1. Open the toaster oven door.
@@ -33,9 +33,9 @@ class ToastBagel(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Pick up the bagel from the plate, place it on the toaster oven rack, close the door, and set the timer."
-        )
+        ep_meta[
+            "lang"
+        ] = "Pick up the bagel from the plate, place it on the toaster oven rack, close the door, and set the timer."
         return ep_meta
 
     def _setup_scene(self):
@@ -67,8 +67,12 @@ class ToastBagel(Kitchen):
         gripper_obj_far = OU.gripper_obj_far(self, "bagel")
 
         if self.toaster_oven.has_multiple_rack_levels():
-            bagel_on_lower = self.toaster_oven.check_rack_contact(self, "bagel", rack_level=0)
-            bagel_on_upper = self.toaster_oven.check_rack_contact(self, "bagel", rack_level=1)
+            bagel_on_lower = self.toaster_oven.check_rack_contact(
+                self, "bagel", rack_level=0
+            )
+            bagel_on_upper = self.toaster_oven.check_rack_contact(
+                self, "bagel", rack_level=1
+            )
             bagel_in_toaster = bagel_on_lower or bagel_on_upper
         else:
             bagel_in_toaster = self.toaster_oven.check_rack_contact(self, "bagel")

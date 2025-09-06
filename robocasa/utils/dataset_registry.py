@@ -2150,7 +2150,6 @@ POST_TRAINING_TASKS = dict(
         "CategorizeCondiments",
         "CuttingToolSelection",
         "DeliverStraw",
-        "DessertAssembly",
         "GarnishPancake",
         "GatherTableware",
         "GetToastedBread",
@@ -2176,6 +2175,62 @@ POST_TRAINING_TASKS = dict(
         "WaffleReheat",
         "WashFruitColander",
         "WashLettuce",
+        "WeighIngredients",
+    ],
+    atomic_seen=[
+        "CloseBlenderLid",
+        "CloseFridge",
+        "CloseToasterOvenDoor",
+        "CoffeeSetupMug",
+        "NavigateKitchen",
+        "OpenCabinet",
+        "OpenDrawer",
+        "OpenStandMixerHead",
+        "PnPCounterToCabinet",
+        "PnPCounterToStove",
+        "PnPDrawerToCounter",
+        "PnPSinkToCounter",
+        "PnPToasterToCounter",
+        "SlideDishwasherRack",
+        "TurnOffStove",
+        "TurnOnElectricKettle",
+        "TurnOnMicrowave",
+        "TurnOnSinkFaucet",
+    ],
+    composite_seen=[
+        "DeliverStraw",
+        "GetToastedBread",
+        "KettleBoiling",
+        "LoadDishwasher",
+        "PackIdenticalLunches",
+        "PreSoakPan",
+        "PrepareCoffee",
+        "RinseSinkBasin",
+        "ScrubCuttingBoard",
+        "SearingMeat",
+        "SetUpCuttingStation",
+        "StackBowlsCabinet",
+        "SteamInMicrowave",
+        "StirVegetables",
+        "StoreLeftoversInBowl",
+        "WashLettuce",
+    ],
+    composite_unseen=[
+        "ArrangeBreadBasket",
+        "ArrangeTea",
+        "BreadSelection",
+        "CategorizeCondiments",
+        "CuttingToolSelection",
+        "GarnishPancake",
+        "GatherTableware",
+        "HeatKebabSandwich",
+        "MakeIceLemonade",
+        "PanTransfer",
+        "PortionHotDogs",
+        "RecycleBottlesByType",
+        "SeparateFreezerRack",
+        "WaffleReheat",
+        "WashFruitColander",
         "WeighIngredients",
     ],
 )
@@ -2231,7 +2286,14 @@ def get_ds_path(task, ds_type, split="train", return_info=False):
 
 def get_ds_soup(split, task_type, source_type):
     assert split in ["train", "test"]
-    assert task_type in ["atomic", "composite", "all"]
+    assert task_type in [
+        "atomic",
+        "composite",
+        "all",
+        "posttrain_atomic_seen",
+        "posttrain_composite_seen",
+        "posttrain_composite_unseen",
+    ]
     assert source_type in ["human", "mg", "all"]
     assert (
         len(SINGLE_STAGE_TASK_DATASETS) == 65 and len(MULTI_STAGE_TASK_DATASETS) == 251
@@ -2245,29 +2307,17 @@ def get_ds_soup(split, task_type, source_type):
         task_list = list(SINGLE_STAGE_TASK_DATASETS.keys()) + list(
             MULTI_STAGE_TASK_DATASETS.keys()
         )
+    elif task_type == "posttrain_atomic_seen":
+        task_list = POST_TRAINING_TASKS["atomic_seen"]
+    elif task_type == "posttrain_composite_seen":
+        task_list = POST_TRAINING_TASKS["composite_seen"]
+    elif task_type == "posttrain_composite_unseen":
+        task_list = POST_TRAINING_TASKS["composite_unseen"]
     else:
         raise ValueError
 
     if split == "train":
-        HELD_OUT_FROM_PRETRAINING = [
-            "ArrangeBreadBasket",
-            "ArrangeTea",
-            "BreadSelection",
-            "CategorizeCondiments",
-            "CuttingToolSelection",
-            "GarnishPancake",
-            "GatherTableware",
-            "HeatKebabSandwich",
-            "MakeIceLemonade",
-            "PanTransfer",
-            "PortionHotDogs",
-            "RecycleBottlesByType",
-            "SeparateFreezerRack",
-            "WaffleReheat",
-            "WashFruitColander",
-            "WeighIngredients",
-        ]
-        for task in HELD_OUT_FROM_PRETRAINING:
+        for task in POST_TRAINING_TASKS["composite_unseen"]:
             if task in task_list:
                 task_list.remove(task)
 

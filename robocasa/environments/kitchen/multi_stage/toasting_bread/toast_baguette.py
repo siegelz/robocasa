@@ -3,7 +3,7 @@ from robocasa.environments.kitchen.kitchen import *
 
 class ToastBaguette(Kitchen):
     """
-    Warm-up of Pastries: Prepare toaster oven to warm pastries gently.
+    Warm-up of Pastries: composite task for Toasting Bread activity.
 
     Steps:
         1. Slide the toaster oven door out.
@@ -67,8 +67,9 @@ class ToastBaguette(Kitchen):
         return cfgs
 
     def _check_success(self):
-        baguette_in_toaster = self.toaster_oven.check_rack_contact(self, "baguette", rack_level=0) or \
-            self.toaster_oven.check_rack_contact(self, "baguette", rack_level=1)
+        baguette_in_toaster = self.toaster_oven.check_rack_contact(
+            self, "baguette", rack_level=0
+        ) or self.toaster_oven.check_rack_contact(self, "baguette", rack_level=1)
 
         if baguette_in_toaster:
             toaster_oven_state = self.toaster_oven.get_state()

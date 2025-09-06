@@ -3,7 +3,7 @@ from robocasa.environments.kitchen.kitchen import *
 
 class GetToastedBread(Kitchen):
     """
-    Get Toasted Bread: Retrieve toasted bread from the toaster.
+    Get Toasted Bread: composite task for Toasting Bread activity.
 
     Steps:
         1. Pull the toaster lever down and wait for the toaster to finish toasting the bread.

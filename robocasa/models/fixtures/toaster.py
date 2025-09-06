@@ -75,6 +75,57 @@ class Toaster(Fixture):
             "sideR_slotR",
         )
 
+    def get_reset_regions(self, env=None, slot_pair=None, side=None, **kwargs):
+        """
+        Returns the reset regions for the toaster slots.
+
+        Args:
+            env: environment instance
+            slot_pair (int or None): 0 to N-1 slot pairs, or None for all pairs
+            side (str or None): "left", "right", or None for both sides
+
+        Returns:
+            dict: reset regions for the specified slots
+        """
+        if slot_pair is not None and (
+            not isinstance(slot_pair, int)
+            or not (0 <= slot_pair < len(self._slot_pairs))
+        ):
+            raise ValueError(
+                f"Invalid slot_pair {slot_pair!r}; must be None or an int in 0-{len(self._slot_pairs)-1}"
+            )
+
+        if side is not None and side not in ("left", "right"):
+            raise ValueError(f"Invalid side {side!r}; must be None, 'left' or 'right'")
+
+        all_regions = list(self.get_reset_region_names())
+
+        if slot_pair is None:
+            filtered_regions = all_regions
+        elif slot_pair == 0:
+            # Return left side regions
+            filtered_regions = [
+                r
+                for r in all_regions
+                if "sideL" in r or (r in ["slotL", "slotR"] and "side" not in r)
+            ]
+        elif slot_pair == 1:
+            # Return right side regions
+            filtered_regions = [r for r in all_regions if "sideR" in r]
+        else:
+            filtered_regions = []
+
+        # Filter by side
+        if side is not None:
+            if side == "left":
+                filtered_regions = [r for r in filtered_regions if "slotL" in r]
+            elif side == "right":
+                filtered_regions = [r for r in filtered_regions if "slotR" in r]
+
+        return super().get_reset_regions(
+            env=env, reset_region_names=filtered_regions, **kwargs
+        )
+
     def set_doneness_knob(self, env, slot_pair, value):
         """
         Sets the toasting doneness knob

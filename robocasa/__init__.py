@@ -731,6 +731,9 @@ from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.snac
 from robocasa.environments.kitchen.multi_stage.toasting_bread.get_toasted_bread import (
     GetToastedBread,
 )
+from robocasa.environments.kitchen.multi_stage.toasting_bread.pj_sandwich_prep import (
+    PJSandwichPrep,
+)
 from robocasa.environments.kitchen.multi_stage.toasting_bread.serve_warm_croissant import (
     ServeWarmCroissant,
 )
@@ -742,6 +745,9 @@ from robocasa.environments.kitchen.multi_stage.toasting_bread.toast_baguette imp
 )
 from robocasa.environments.kitchen.multi_stage.toasting_bread.toast_on_correct_rack import (
     ToastOnCorrectRack,
+)
+from robocasa.environments.kitchen.multi_stage.toasting_bread.toast_one_slot_pair import (
+    ToastOneSlotPair,
 )
 from robocasa.environments.kitchen.multi_stage.washing_dishes.clear_sink import (
     ClearSink,

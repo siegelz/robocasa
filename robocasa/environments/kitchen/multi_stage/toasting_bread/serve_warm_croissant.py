@@ -3,7 +3,7 @@ from robocasa.environments.kitchen.kitchen import *
 
 class ServeWarmCroissant(Kitchen):
     """
-    Serve Warm Croissant: Serve warm croissant on plate.
+    Serve Warm Croissant: composite task for Toasting Bread activity.
 
     Steps:
         1. Open the toaster oven door.
