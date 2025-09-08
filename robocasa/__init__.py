@@ -134,6 +134,9 @@ from robocasa.environments.kitchen.multi_stage.chopping_vegetables.gather_cuttin
 from robocasa.environments.kitchen.multi_stage.chopping_vegetables.cutting_tool_selection import (
     CuttingToolSelection,
 )
+from robocasa.environments.kitchen.multi_stage.cleaning_appliances.clean_blender_jug import (
+    CleanBlenderJug,
+)
 from robocasa.environments.kitchen.multi_stage.cleaning_appliances.prep_fridge_for_cleaning import (
     PrepFridgeForCleaning,
 )
@@ -388,11 +391,20 @@ from robocasa.environments.kitchen.multi_stage.preparing_marinade.place_meat_in_
 from robocasa.environments.kitchen.multi_stage.mixing_and_blending.colorful_salsa import (
     ColorfulSalsa,
 )
-from robocasa.environments.kitchen.multi_stage.mixing_and_blending.setup_juicing import (
-    SetupJuicing,
+from robocasa.environments.kitchen.multi_stage.mixing_and_blending.make_banana_milkshake import (
+    MakeBananaMilkshake,
 )
 from robocasa.environments.kitchen.multi_stage.mixing_and_blending.spicy_marinade import (
     SpicyMarinade,
+)
+from robocasa.environments.kitchen.multi_stage.mixing_ingredients.blend_salsa_mix import (
+    BlendSalsaMix,
+)
+from robocasa.environments.kitchen.multi_stage.mixing_ingredients.make_cheesecake_filling import (
+    MakeCheesecakeFilling,
+)
+from robocasa.environments.kitchen.multi_stage.mixing_ingredients.make_chocolate_milk import (
+    MakeChocolateMilk,
 )
 from robocasa.environments.kitchen.multi_stage.plating_food.balanced_meal_prep import (
     BalancedMealPrep,
@@ -824,7 +836,6 @@ from robocasa.environments.kitchen.multi_stage.washing_fruits_and_vegetables.air
 from robocasa.environments.kitchen.multi_stage.washing_fruits_and_vegetables.gather_produce_washing import (
     GatherProduceWashing,
 )
-
 from robocasa.environments.kitchen.multi_stage.washing_fruits_and_vegetables.wash_fruit_colander import (
     WashFruitColander,
 )

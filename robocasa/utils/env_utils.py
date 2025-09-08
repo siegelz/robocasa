@@ -45,6 +45,10 @@ _ROBOT_POS_OFFSETS: dict[str, list[float]] = {
     "GoogleRobot": [0, 0, 0],
 }
 
+KITCHEN_SCENES_5X5 = [
+    (layout, style) for layout in [11, 15, 18, 40, 50] for style in [14, 28, 34, 46, 58]
+]
+
 
 def create_env(
     env_name,
@@ -818,6 +822,8 @@ def _check_cfg_is_valid(cfg):
             "reset_region",
             "rotate_upright",
             "auxiliary_object_config",
+            "auxiliary_obj_enable",
+            "auxiliary_obj_placement",
         }
     )
 

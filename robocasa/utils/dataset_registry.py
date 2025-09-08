@@ -2293,7 +2293,7 @@ def get_ds_soup(split, task_type, source_type):
         "posttrain_atomic_seen",
         "posttrain_composite_seen",
         "posttrain_composite_unseen",
-    ]
+    ] + list(SINGLE_STAGE_TASK_DATASETS.keys()) + list(MULTI_STAGE_TASK_DATASETS.keys())
     assert source_type in ["human", "mg", "all"]
     assert (
         len(SINGLE_STAGE_TASK_DATASETS) == 65 and len(MULTI_STAGE_TASK_DATASETS) == 251
@@ -2314,7 +2314,7 @@ def get_ds_soup(split, task_type, source_type):
     elif task_type == "posttrain_composite_unseen":
         task_list = POST_TRAINING_TASKS["composite_unseen"]
     else:
-        raise ValueError
+        task_list = [task_type]
 
     if split == "train":
         for task in POST_TRAINING_TASKS["composite_unseen"]:

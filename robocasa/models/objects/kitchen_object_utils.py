@@ -52,6 +52,10 @@ class ObjCat:
         priority: priority of the object
 
         reg_type (str): registry type (options: objaverse, aigen_objs, lightwheel)
+
+        auxiliary_obj (str): name of the auxiliary object group (e.g., "saucepan_lid")
+
+        is_auxiliary_obj (bool): if True, models are located one directory deeper
     """
 
     def __init__(
@@ -74,6 +78,8 @@ class ObjCat:
         friction=(0.95, 0.3, 0.1),
         priority=None,
         reg_type="objaverse",
+        auxiliary_obj=None,
+        is_auxiliary_obj=False,
     ):
         self.name = name
         if not isinstance(types, tuple):
@@ -89,6 +95,8 @@ class ObjCat:
         self.fridgable = fridgable
         self.freezable = freezable
         self.dishwashable = dishwashable
+        self.auxiliary_obj = auxiliary_obj
+        self.is_auxiliary_obj = is_auxiliary_obj
 
         self.scale = scale
         self.solimp = solimp
@@ -108,10 +116,23 @@ class ObjCat:
                 continue
             for model_name in os.listdir(cat_path):
                 model_dir = os.path.join(cat_path, model_name)
-                if os.path.isdir(model_dir) and "model.xml" in os.listdir(model_dir):
-                    if model_name in self.exclude:
-                        continue
-                    cat_mjcf_paths.append(os.path.join(model_dir, "model.xml"))
+                if not os.path.isdir(model_dir):
+                    continue
+                if self.is_auxiliary_obj:
+                    # auxiliary objects live one directory deeper
+                    for sub_name in os.listdir(model_dir):
+                        sub_dir = os.path.join(model_dir, sub_name)
+                        if os.path.isdir(sub_dir) and "model.xml" in os.listdir(
+                            sub_dir
+                        ):
+                            if model_name in self.exclude:
+                                continue
+                            cat_mjcf_paths.append(os.path.join(sub_dir, "model.xml"))
+                else:
+                    if "model.xml" in os.listdir(model_dir):
+                        if model_name in self.exclude:
+                            continue
+                        cat_mjcf_paths.append(os.path.join(model_dir, "model.xml"))
         self.mjcf_paths = sorted(cat_mjcf_paths)
 
     def get_mjcf_kwargs(self):
@@ -144,6 +165,8 @@ for (name, kwargs) in OBJ_CATEGORIES.items():
             "cookable",
             "fridgable",
             "freezable",
+            "auxiliary_obj",
+            "is_auxiliary_obj",
             "dishwashable",
             "types",
             "aigen",
@@ -184,6 +207,7 @@ def sample_kitchen_object(
     fridgable=None,
     freezable=None,
     dishwashable=None,
+    auxiliary_obj=None,
     rng=None,
     obj_registries=("objaverse", "lightwheel"),
     split=None,
@@ -212,6 +236,8 @@ def sample_kitchen_object(
         freezable (bool): whether whether the sampled object must be freezable
 
         dishwashable (bool): whether whether the sampled object must be dishwashable
+
+        auxiliary_obj (str): name of the auxiliary object group to look for
 
         rng (np.random.Generator): random number object
 
@@ -243,6 +269,7 @@ def sample_kitchen_object(
             fridgable=fridgable,
             freezable=freezable,
             dishwashable=dishwashable,
+            auxiliary_obj=auxiliary_obj,
             rng=rng,
             obj_registries=obj_registries,
             split=split,
@@ -280,6 +307,7 @@ def sample_kitchen_object_helper(
     fridgable=None,
     freezable=None,
     dishwashable=None,
+    auxiliary_obj=None,
     rng=None,
     obj_registries=("objaverse",),
     split=None,
@@ -307,6 +335,8 @@ def sample_kitchen_object_helper(
         freezable (bool): whether whether the sampled object must be freezable
 
         dishwashable (bool): whether whether the sampled object must be dishwashable
+
+        auxiliary_obj (str): name of the auxiliary object group to look for
 
         rng (np.random.Generator): random number object
 

@@ -425,7 +425,11 @@ class Kitchen(ManipulationEnv, metaclass=KitchenEnvMeta):
             assert (
                 layout_ids is None and style_ids is None
             ), "layout_ids and style_ids must both be set to None if layout_and_style_ids is set"
-            self.layout_and_style_ids = layout_and_style_ids
+            if isinstance(layout_and_style_ids, str):
+                if layout_and_style_ids == "5x5":
+                    self.layout_and_style_ids = EnvUtils.KITCHEN_SCENES_5X5
+            else:
+                self.layout_and_style_ids = layout_and_style_ids
         else:
             layout_ids = SceneRegistry.unpack_layout_ids(layout_ids)
             style_ids = SceneRegistry.unpack_style_ids(style_ids)
@@ -885,11 +889,67 @@ class Kitchen(ManipulationEnv, metaclass=KitchenEnvMeta):
                 # append the config for this object
                 all_obj_cfgs.append(cfg)
 
+                # trigger only if the task enabled it and the base category declares an auxiliary_obj
+                aux_enable = cfg.get("auxiliary_obj_enable", False)
+                obj_group = cfg.get("obj_groups", "")
+                auxiliary_obj_group = None
+
+                if aux_enable and obj_group in OBJ_CATEGORIES:
+                    for registry_name, obj_cat in OBJ_CATEGORIES[obj_group].items():
+                        if hasattr(obj_cat, "auxiliary_obj") and obj_cat.auxiliary_obj:
+                            auxiliary_obj_group = obj_cat.auxiliary_obj
+                            break
+
+                if aux_enable and auxiliary_obj_group:
+                    aux_obj_cfg = {}
+                    aux_obj_cfg["name"] = cfg["name"] + "_auxiliary"
+                    aux_obj_cfg["type"] = "object"
+                    direct_aux_mjcf_path = self._get_aux_obj_instance(
+                        cfg.get("info", {}).get("mjcf_path")
+                    )
+                    aux_obj_cfg["obj_groups"] = (
+                        direct_aux_mjcf_path or auxiliary_obj_group
+                    )
+                    specified_aux_placement = cfg.get("auxiliary_obj_placement")
+                    if specified_aux_placement is not None:
+                        aux_obj_cfg["placement"] = specified_aux_placement
+                    else:
+                        aux_obj_cfg["placement"] = dict(
+                            anchor_to=cfg["name"],
+                            ensure_object_boundary_in_range=False,
+                            ensure_valid_placement=False,
+                        )
+
+                    all_obj_cfgs.append(aux_obj_cfg)
+                    model, info = EnvUtils.create_obj(self, aux_obj_cfg)
+                    aux_obj_cfg["info"] = info
+                    self.objects[model.name] = model
+                    self.model.merge_objects([model])
+
             # prepend the new object configs in
             self.object_cfgs = all_obj_cfgs
 
             # # remove objects that didn't get created
             # self.object_cfgs = [cfg for cfg in self.object_cfgs if "model" in cfg]
+
+    def _get_aux_obj_instance(self, base_mjcf_path):
+        """
+        Given a base object's mjcf_path, try to resolve a direct auxiliary
+        object instance path
+
+        Returns a string path to the auxiliary object's model.xml if found,
+        otherwise None.
+        """
+        if not isinstance(base_mjcf_path, str):
+            return None
+        base_dir = os.path.dirname(base_mjcf_path)
+        for subdir in os.listdir(base_dir):
+            subdir_path = os.path.join(base_dir, subdir)
+            if os.path.isdir(subdir_path):
+                candidate = os.path.join(subdir_path, "model.xml")
+                if os.path.exists(candidate):
+                    return candidate
+        return None
 
     def _setup_kitchen_references(self):
         """
