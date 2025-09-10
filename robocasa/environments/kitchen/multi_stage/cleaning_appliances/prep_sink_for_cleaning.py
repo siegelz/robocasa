@@ -23,7 +23,9 @@ class PrepSinkForCleaning(Kitchen):
             "counter", dict(id=FixtureType.COUNTER, ref=self.sink)
         )
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET_WITH_DOOR))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET_WITH_DOOR)
+        )
         self.init_robot_base_ref = self.sink
 
     def get_ep_meta(self):
@@ -95,12 +97,14 @@ class PrepSinkForCleaning(Kitchen):
         return cfgs
 
     def _check_success(self):
-        food_item_in_fridge = self.fridge.check_rack_contact(self, "food_item_container")
+        food_item_in_fridge = self.fridge.check_rack_contact(
+            self, "food_item_container"
+        )
         cup_in_cabinet = OU.check_obj_fixture_contact(self, "cup", self.cabinet)
-        
+
         gripper_far_food_item = OU.gripper_obj_far(self, "food_item_container")
         gripper_far_cup = OU.gripper_obj_far(self, "cup")
-        
+
         return (
             food_item_in_fridge
             and cup_in_cabinet

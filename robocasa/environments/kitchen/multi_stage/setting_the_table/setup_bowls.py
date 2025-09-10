@@ -12,7 +12,11 @@ class SetupBowls(Kitchen):
         2) Place a bowl in front of each stool.
     """
 
-    EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS + Kitchen.DOUBLE_CAB_EXCLUDED_LAYOUTS + [35]
+    EXCLUDE_LAYOUTS = (
+        Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
+        + Kitchen.DOUBLE_CAB_EXCLUDED_LAYOUTS
+        + [35]
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -75,7 +79,7 @@ class SetupBowls(Kitchen):
                 stool_name = f"stool{i+1}"
                 self.fixture_refs[stool_name] = fixture
                 self.stools.append(fixture)
-        
+
         self.init_robot_base_ref = self.cabinet
 
     def get_ep_meta(self):
@@ -83,7 +87,7 @@ class SetupBowls(Kitchen):
         ep_meta[
             "lang"
         ] = "Pick up the bowls from the cabinet and place each bowl in front of a stool on the dining counter."
-        
+
         ep_meta["refs"] = ep_meta.get("refs", {})
         for i, stool in enumerate(self.stools):
             ep_meta["refs"][f"stool{i+1}"] = stool.name
@@ -176,8 +180,7 @@ class SetupBowls(Kitchen):
                 success = False
 
         all_bowls_far = all(
-            OU.gripper_obj_far(self, obj_name=name)
-            for name in bowl_names
+            OU.gripper_obj_far(self, obj_name=name) for name in bowl_names
         )
 
         return success and all_bowls_far

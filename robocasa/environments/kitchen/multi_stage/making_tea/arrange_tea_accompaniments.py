@@ -74,7 +74,9 @@ class ArrangeTeaAccompaniments(Kitchen):
                     fixture=self.counter,
                     size=(0.5, 0.5),
                     pos=(0, -1.0),
-                    sample_region_kwargs=dict(top_size=(0.6, 0.4), full_depth_region=True),
+                    sample_region_kwargs=dict(
+                        top_size=(0.6, 0.4), full_depth_region=True
+                    ),
                 ),
             )
         )

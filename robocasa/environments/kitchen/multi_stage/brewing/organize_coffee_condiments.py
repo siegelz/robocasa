@@ -5,7 +5,7 @@ class OrganizeCoffeeCondiments(Kitchen):
     """
     Organize Condiments: composite task for Brewing activity.
     Simulates the task of organizing condiments.
-    
+
     Steps:
         Open the cabinet, pick the condiments, and place them near the mug.
     """
@@ -16,7 +16,7 @@ class OrganizeCoffeeCondiments(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        
+
         self.coffee_machine = self.register_fixture_ref(
             "coffee_machine", dict(id=FixtureType.COFFEE_MACHINE)
         )
@@ -27,7 +27,8 @@ class OrganizeCoffeeCondiments(Kitchen):
             "counter", dict(id=FixtureType.COUNTER, ref=self.cab)
         )
         self.coffee_machine_counter = self.register_fixture_ref(
-            "coffee_machine_counter", dict(id=FixtureType.COUNTER, ref=self.coffee_machine)
+            "coffee_machine_counter",
+            dict(id=FixtureType.COUNTER, ref=self.coffee_machine),
         )
         self.init_robot_base_ref = self.cab
 
@@ -37,9 +38,7 @@ class OrganizeCoffeeCondiments(Kitchen):
         obj2_name = self.get_obj_lang("obj2")
         ep_meta[
             "lang"
-        ] = (
-            f"Pick the {obj1_name} and {obj2_name} from the {self.cab.nat_lang} and place them next to the mug." 
-        )
+        ] = f"Pick the {obj1_name} and {obj2_name} from the {self.cab.nat_lang} and place them next to the mug."
         return ep_meta
 
     def _setup_scene(self):
@@ -64,7 +63,7 @@ class OrganizeCoffeeCondiments(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="obj2",
@@ -107,7 +106,7 @@ class OrganizeCoffeeCondiments(Kitchen):
         )
 
         return cfgs
-    
+
     def _close_to_mug(self, obj_name, dist=0.3):
         """
         Check if the object is close to the coffee machine.
@@ -136,7 +135,19 @@ class OrganizeCoffeeCondiments(Kitchen):
         """
         obj1_close = self._close_to_mug("obj1")
         obj2_close = self._close_to_mug("obj2")
-        obj1_on_counter = self.check_contact(self.objects["obj1"], self.coffee_machine_counter)
-        obj2_on_counter = self.check_contact(self.objects["obj2"], self.coffee_machine_counter)
-        gripper_obj_far = OU.gripper_obj_far(self, "obj1", th=0.15) and OU.gripper_obj_far(self, "obj2", th=0.15)
-        return obj1_close and obj2_close and obj1_on_counter and obj2_on_counter and gripper_obj_far
+        obj1_on_counter = self.check_contact(
+            self.objects["obj1"], self.coffee_machine_counter
+        )
+        obj2_on_counter = self.check_contact(
+            self.objects["obj2"], self.coffee_machine_counter
+        )
+        gripper_obj_far = OU.gripper_obj_far(
+            self, "obj1", th=0.15
+        ) and OU.gripper_obj_far(self, "obj2", th=0.15)
+        return (
+            obj1_close
+            and obj2_close
+            and obj1_on_counter
+            and obj2_on_counter
+            and gripper_obj_far
+        )

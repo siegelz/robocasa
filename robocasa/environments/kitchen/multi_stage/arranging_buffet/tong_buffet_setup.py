@@ -26,12 +26,12 @@ class TongBuffetSetup(ManipulateDrawer):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         food = self.get_obj_lang("food")
-        
+
         ep_meta["lang"] = (
             f"Take the tongs from the drawer on the {self.drawer_side} and place them on the dining counter "
             f"next to the tray containing the {food}."
         )
-        
+
         return ep_meta
 
     def _setup_scene(self):
@@ -39,7 +39,7 @@ class TongBuffetSetup(ManipulateDrawer):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="tongs",
@@ -52,7 +52,7 @@ class TongBuffetSetup(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="food",
@@ -65,12 +65,12 @@ class TongBuffetSetup(ManipulateDrawer):
                     ),
                     size=(0.50, 0.40),
                     pos=(0, -1.0),
-                    rotation=(np.pi/2),
+                    rotation=(np.pi / 2),
                     try_to_place_in="tray",
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_spoon",
@@ -85,7 +85,7 @@ class TongBuffetSetup(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_fork",
@@ -101,7 +101,7 @@ class TongBuffetSetup(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_glass_cup",
@@ -112,7 +112,7 @@ class TongBuffetSetup(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_glass_cup_2",
@@ -124,13 +124,17 @@ class TongBuffetSetup(ManipulateDrawer):
                 ),
             )
         )
-        
+
         return cfgs
 
     def _check_success(self):
-        tongs_on_counter = OU.check_obj_fixture_contact(self, "tongs", self.dining_counter)
-        tray_on_counter = OU.check_obj_fixture_contact(self, "food_container", self.dining_counter)
-        
+        tongs_on_counter = OU.check_obj_fixture_contact(
+            self, "tongs", self.dining_counter
+        )
+        tray_on_counter = OU.check_obj_fixture_contact(
+            self, "food_container", self.dining_counter
+        )
+
         if tongs_on_counter and tray_on_counter:
             tongs_pos = self.sim.data.body_xpos[self.obj_body_id["tongs"]][:2]
             tray_pos = self.sim.data.body_xpos[self.obj_body_id["food_container"]][:2]
@@ -138,10 +142,9 @@ class TongBuffetSetup(ManipulateDrawer):
             tongs_near_tray = distance <= 0.5
         else:
             tongs_near_tray = False
-        
-        gripper_far = (
-            OU.gripper_obj_far(self, obj_name="tongs", th=0.15) and
-            OU.gripper_obj_far(self, obj_name="food_container", th=0.15)
-        )
-        
+
+        gripper_far = OU.gripper_obj_far(
+            self, obj_name="tongs", th=0.15
+        ) and OU.gripper_obj_far(self, obj_name="food_container", th=0.15)
+
         return tongs_on_counter and tray_on_counter and tongs_near_tray and gripper_far

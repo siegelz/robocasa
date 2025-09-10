@@ -20,10 +20,13 @@ class GarnishCupcake(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET)
+        )
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
+            "dining_counter",
+            dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
         self.init_robot_base_ref = self.cabinet
 
@@ -66,7 +69,7 @@ class GarnishCupcake(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="cupcake",
@@ -94,19 +97,27 @@ class GarnishCupcake(Kitchen):
                 ),
             )
         )
-                
+
         return cfgs
 
     def _check_success(self):
         cupcake_container_name = "cupcake_container"
         cinnamon_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["cinnamon"]])
-        plate_pos = np.array(self.sim.data.body_xpos[self.obj_body_id[cupcake_container_name]])
+        plate_pos = np.array(
+            self.sim.data.body_xpos[self.obj_body_id[cupcake_container_name]]
+        )
         cinnamon_distance = np.linalg.norm(cinnamon_pos[:2] - plate_pos[:2])
         cinnamon_next_to_plate = cinnamon_distance <= 0.3
 
-        chocolate_on_plate = OU.check_obj_in_receptacle(self, "chocolate", cupcake_container_name)
-        cupcake_on_plate = OU.check_obj_in_receptacle(self, "cupcake", cupcake_container_name)
-        plate_on_table = OU.check_obj_fixture_contact(self, cupcake_container_name, self.dining_counter)
+        chocolate_on_plate = OU.check_obj_in_receptacle(
+            self, "chocolate", cupcake_container_name
+        )
+        cupcake_on_plate = OU.check_obj_in_receptacle(
+            self, "cupcake", cupcake_container_name
+        )
+        plate_on_table = OU.check_obj_fixture_contact(
+            self, cupcake_container_name, self.dining_counter
+        )
 
         gripper_far_cinnamon = OU.gripper_obj_far(self, "cinnamon")
         gripper_far_chocolate = OU.gripper_obj_far(self, "chocolate")

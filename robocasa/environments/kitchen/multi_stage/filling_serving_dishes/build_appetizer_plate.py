@@ -21,12 +21,11 @@ class BuildAppetizerPlate(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
-        
-        self.stool = self.register_fixture_ref(
-            "stool", dict(id=FixtureType.STOOL)
-        )
+
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_table = self.register_fixture_ref(
-            "dining_table", dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
+            "dining_table",
+            dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
         self.init_robot_base_ref = self.fridge
 
@@ -92,7 +91,7 @@ class BuildAppetizerPlate(Kitchen):
                 ),
             )
         )
-       
+
         cfgs.append(
             dict(
                 name="appetizer_plate",
@@ -111,11 +110,21 @@ class BuildAppetizerPlate(Kitchen):
     def _check_success(self):
         cheese_on_plate = OU.check_obj_in_receptacle(self, "cheese", "appetizer_plate")
         meat_on_plate = OU.check_obj_in_receptacle(self, "meat", "appetizer_plate")
-        vegetable_on_plate = OU.check_obj_in_receptacle(self, "vegetable", "appetizer_plate")
-        plate_on_table = OU.check_obj_fixture_contact(self, "appetizer_plate", self.dining_table)
-        gripper_far = (
-            OU.gripper_obj_far(self, "cheese") and
-            OU.gripper_obj_far(self, "meat") and
-            OU.gripper_obj_far(self, "vegetable")
+        vegetable_on_plate = OU.check_obj_in_receptacle(
+            self, "vegetable", "appetizer_plate"
         )
-        return cheese_on_plate and meat_on_plate and vegetable_on_plate and plate_on_table and gripper_far 
+        plate_on_table = OU.check_obj_fixture_contact(
+            self, "appetizer_plate", self.dining_table
+        )
+        gripper_far = (
+            OU.gripper_obj_far(self, "cheese")
+            and OU.gripper_obj_far(self, "meat")
+            and OU.gripper_obj_far(self, "vegetable")
+        )
+        return (
+            cheese_on_plate
+            and meat_on_plate
+            and vegetable_on_plate
+            and plate_on_table
+            and gripper_far
+        )

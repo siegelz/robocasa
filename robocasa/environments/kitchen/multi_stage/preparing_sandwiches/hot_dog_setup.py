@@ -15,20 +15,24 @@ class HotDogSetup(Kitchen):
 
     EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
 
-    def __init__(self, obj_registries=("aigen", "objaverse", "lightwheel"), *args, **kwargs):
+    def __init__(
+        self, obj_registries=("aigen", "objaverse", "lightwheel"), *args, **kwargs
+    ):
         super().__init__(obj_registries=obj_registries, *args, **kwargs)
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
 
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET)
+        )
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cabinet)
         )
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.dining_table = self.register_fixture_ref(
-            "dining_table", dict(id=FixtureType.DINING_COUNTER)
+            "dining_table", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
 
         self.init_robot_base_ref = self.counter
@@ -37,7 +41,7 @@ class HotDogSetup(Kitchen):
         ep_meta = super().get_ep_meta()
         condiment_lang = self.get_obj_lang("condiment")
         ep_meta["lang"] = (
-            "Move the hot dog bun to the plate on the dining table and place the {condiment_lang} next to that plate. "
+            f"Move the hot dog bun to the plate on the dining table and place the {condiment_lang} next to that plate. "
             "Then navigate to the fridge and take the sausage and place it on the plate as well."
         )
         return ep_meta

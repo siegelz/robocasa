@@ -88,11 +88,11 @@ class PrepFridgeForCleaning(Kitchen):
         fruit_on_counter = OU.check_obj_any_counter_contact(self, "fruit")
         vegetable_on_counter = OU.check_obj_any_counter_contact(self, "vegetable")
         meat_on_counter = OU.check_obj_any_counter_contact(self, "meat")
-        
+
         gripper_far_fruit = OU.gripper_obj_far(self, "fruit")
         gripper_far_vegetable = OU.gripper_obj_far(self, "vegetable")
         gripper_far_meat = OU.gripper_obj_far(self, "meat")
-        
+
         return (
             fruit_on_counter
             and vegetable_on_counter

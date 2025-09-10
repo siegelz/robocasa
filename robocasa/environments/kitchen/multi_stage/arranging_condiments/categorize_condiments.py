@@ -5,7 +5,7 @@ class CategorizeCondiments(Kitchen):
     """
     Categorizes Condiments: composite task for Arranging Condiments activity.
 
-    Task: Put the shaker from the counter next to the shaker in the cabinet 
+    Task: Put the shaker from the counter next to the shaker in the cabinet
     and the condiment bottle from the counter next to the condiment bottle in the cabinet.
     """
 
@@ -23,9 +23,9 @@ class CategorizeCondiments(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Put the shaker and condiment bottle from the counter next to their counterparts in the cabinet."
-        )
+        ep_meta[
+            "lang"
+        ] = "Put the shaker and condiment bottle from the counter next to their counterparts in the cabinet."
         return ep_meta
 
     def _setup_scene(self):
@@ -63,7 +63,6 @@ class CategorizeCondiments(Kitchen):
                 ),
             )
         )
-
 
         cfgs.append(
             dict(
@@ -108,8 +107,12 @@ class CategorizeCondiments(Kitchen):
         return cfgs
 
     def _xy_dist(self, obj_name1, obj_name2):
-        obj1_pos = self.sim.data.body_xpos[self.obj_body_id[self.objects[obj_name1].name]][:2]
-        obj2_pos = self.sim.data.body_xpos[self.obj_body_id[self.objects[obj_name2].name]][:2]
+        obj1_pos = self.sim.data.body_xpos[
+            self.obj_body_id[self.objects[obj_name1].name]
+        ][:2]
+        obj2_pos = self.sim.data.body_xpos[
+            self.obj_body_id[self.objects[obj_name2].name]
+        ][:2]
         return np.linalg.norm(obj1_pos - obj2_pos)
 
     def _check_success(self):
@@ -119,6 +122,14 @@ class CategorizeCondiments(Kitchen):
         bottles_close = self._xy_dist("obj1", "cab_obj1") <= 0.15
         shakers_close = self._xy_dist("obj2", "cab_obj2") <= 0.15
 
-        gripper_far = OU.gripper_obj_far(self, "obj1") and OU.gripper_obj_far(self, "obj2")
+        gripper_far = OU.gripper_obj_far(self, "obj1") and OU.gripper_obj_far(
+            self, "obj2"
+        )
 
-        return obj1_in_cab and obj2_in_cab and bottles_close and shakers_close and gripper_far
+        return (
+            obj1_in_cab
+            and obj2_in_cab
+            and bottles_close
+            and shakers_close
+            and gripper_far
+        )

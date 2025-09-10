@@ -28,9 +28,7 @@ class StackCans(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta[
-            "lang"
-        ] = "Stack two cans on top of the other two cans in the cabinet."
+        ep_meta["lang"] = "Stack two cans on top of the other two cans in the cabinet."
         return ep_meta
 
     def _setup_scene(self):
@@ -84,7 +82,7 @@ class StackCans(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="can4",
@@ -116,36 +114,44 @@ class StackCans(Kitchen):
         )
 
         return cfgs
-    
+
     def _check_if_can_stacked(self, can1_name, can2_name):
         """
         Check if can1 is stacked on can2 or vice versa.
         """
         can1 = self.objects[can1_name]
         can2 = self.objects[can2_name]
-        
+
         can1_pos = np.array(self.sim.data.body_xpos[self.obj_body_id[can1.name]])
         can2_pos = np.array(self.sim.data.body_xpos[self.obj_body_id[can2.name]])
-        
+
         dist = np.linalg.norm(can1_pos[0:1] - can2_pos[0:1])
-        
-        return dist < 0.02 and ((can1_pos[2] + 0.5 > can2_pos[2]) or (can2_pos[2] + 0.5 > can1_pos[2]))
-        
+
+        return dist < 0.02 and (
+            (can1_pos[2] + 0.5 > can2_pos[2]) or (can2_pos[2] + 0.5 > can1_pos[2])
+        )
+
     def _check_success(self):
         c1c2 = self._check_if_can_stacked("can1", "can2")
         c1c3 = self._check_if_can_stacked("can1", "can3")
         c1c4 = self._check_if_can_stacked("can1", "can4")
-        
+
         c2c3 = self._check_if_can_stacked("can2", "can3")
         c2c4 = self._check_if_can_stacked("can2", "can4")
-        
+
         c3c4 = self._check_if_can_stacked("can3", "can4")
-        
+
         stacked = (c1c2 and c3c4) or (c1c3 and c2c4) or (c1c4 and c2c3)
-        
+
         far_from_object1 = OU.gripper_obj_far(self, obj_name="can1")
         far_from_object2 = OU.gripper_obj_far(self, obj_name="can2")
         far_from_object3 = OU.gripper_obj_far(self, obj_name="can3")
         far_from_object4 = OU.gripper_obj_far(self, obj_name="can4")
-        
-        return stacked and far_from_object1 and far_from_object2 and far_from_object3 and far_from_object4
+
+        return (
+            stacked
+            and far_from_object1
+            and far_from_object2
+            and far_from_object3
+            and far_from_object4
+        )

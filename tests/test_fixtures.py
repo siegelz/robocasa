@@ -118,7 +118,6 @@ FIXTURE_TO_TEST_ENVS = dict(
         dict(env_name="OpenOven"),
         dict(env_name="CloseOven"),
         dict(env_name="PnPCounterToOven"),
-        dict(env_name="PnPOvenToCounter"),
     ],
     fridge_french_door=[
         dict(env_name="OpenFridge"),

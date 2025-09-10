@@ -17,7 +17,7 @@ class ResetCabinetDoors(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        
+
         if "cab1" in self.fixture_refs:
             self.cab = self.fixture_refs["cab1"]
             self.cab2 = self.fixture_refs["cab2"]
@@ -31,7 +31,9 @@ class ResetCabinetDoors(Kitchen):
                     # sample until at least 2 different cabinets are selected
                     self.cab2 = self.get_fixture(FixtureType.CABINET_WITH_DOOR)
                     self.cab3 = self.get_fixture(FixtureType.CABINET_WITH_DOOR)
-                    if self.cab2 != self.cab and self.cab3 != self.cab2: #We only check for 2 different cabinets as there might only be two cabinets
+                    if (
+                        self.cab2 != self.cab and self.cab3 != self.cab2
+                    ):  # We only check for 2 different cabinets as there might only be two cabinets
                         valid_cab_config_found = True
                         break
 
@@ -41,7 +43,7 @@ class ResetCabinetDoors(Kitchen):
             self.fixture_refs["cab1"] = self.cab
             self.fixture_refs["cab2"] = self.cab2
             self.fixture_refs["cab3"] = self.cab3
-        
+
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cab)
         )
@@ -50,9 +52,7 @@ class ResetCabinetDoors(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
 
-        ep_meta["lang"] = (
-            "Close all open cabinet doors."
-        )
+        ep_meta["lang"] = "Close all open cabinet doors."
         return ep_meta
 
     def _setup_scene(self):
@@ -61,7 +61,7 @@ class ResetCabinetDoors(Kitchen):
         """
         super()._setup_scene()
         self.cab.open_door(env=self, min=0.3, max=1.0)
-        self.cab2.open_door(env=self, min=0.4, max=1.0) 
+        self.cab2.open_door(env=self, min=0.4, max=1.0)
         self.cab3.open_door(env=self, min=0.25, max=0.9)
 
     def _get_obj_cfgs(self):
@@ -87,4 +87,8 @@ class ResetCabinetDoors(Kitchen):
         return cfgs
 
     def _check_success(self):
-        return self.cab.is_closed(env=self) and self.cab2.is_closed(env=self) and self.cab3.is_closed(self)
+        return (
+            self.cab.is_closed(env=self)
+            and self.cab2.is_closed(env=self)
+            and self.cab3.is_closed(self)
+        )

@@ -17,15 +17,14 @@ class AddMarshmallow(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
 
-        self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
-        )
-
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, full_depth_region=True)
         )
 
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
+        )
 
         self.init_robot_base_ref = self.counter
 

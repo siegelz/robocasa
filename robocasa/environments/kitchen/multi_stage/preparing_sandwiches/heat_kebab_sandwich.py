@@ -89,15 +89,13 @@ class HeatKebabSandwich(Kitchen):
         return cfgs
 
     def _check_success(self):
-        baguette_in_toaster = (
-            self.toaster_oven.check_rack_contact(self, "baguette", rack_level=0)
-            or self.toaster_oven.check_rack_contact(self, "baguette", rack_level=1)
-        )
+        baguette_in_toaster = self.toaster_oven.check_rack_contact(
+            self, "baguette", rack_level=0
+        ) or self.toaster_oven.check_rack_contact(self, "baguette", rack_level=1)
 
-        kebab_in_toaster = (
-            self.toaster_oven.check_rack_contact(self, "kebab", rack_level=0)
-            or self.toaster_oven.check_rack_contact(self, "kebab", rack_level=1)
-        )
+        kebab_in_toaster = self.toaster_oven.check_rack_contact(
+            self, "kebab", rack_level=0
+        ) or self.toaster_oven.check_rack_contact(self, "kebab", rack_level=1)
         toaster_oven_state = self.toaster_oven.get_state()
 
         if baguette_in_toaster and kebab_in_toaster:

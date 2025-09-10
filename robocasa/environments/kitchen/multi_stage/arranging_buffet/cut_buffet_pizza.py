@@ -17,18 +17,22 @@ class CutBuffetPizza(ManipulateDrawer):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.dining_counter = self.register_fixture_ref("dining_counter", dict(id=FixtureType.DINING_COUNTER))
-        self.drawer = self.register_fixture_ref("drawer", dict(id=FixtureType.DRAWER, ref=self.dining_counter))
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
+        )
+        self.drawer = self.register_fixture_ref(
+            "drawer", dict(id=FixtureType.DRAWER, ref=self.dining_counter)
+        )
         self.init_robot_base_ref = self.drawer
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
+
         ep_meta["lang"] = (
             f"Take the pizza cutter from the drawer on the {self.drawer_side} and place it on the "
             f"dining counter for cutting."
         )
-        
+
         return ep_meta
 
     def _setup_scene(self):
@@ -36,7 +40,7 @@ class CutBuffetPizza(ManipulateDrawer):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="pizza_cutter",
@@ -49,7 +53,7 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="pizza",
@@ -61,7 +65,7 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_utensil",
@@ -86,7 +90,7 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_bread_food",
@@ -99,7 +103,7 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_mug",
@@ -110,7 +114,7 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_mug_2",
@@ -122,17 +126,20 @@ class CutBuffetPizza(ManipulateDrawer):
                 ),
             )
         )
-        
+
         return cfgs
 
     def _check_success(self):
-        pizza_cutter_on_counter = OU.check_obj_fixture_contact(self, "pizza_cutter", self.dining_counter)
-        
-        pizza_on_counter = OU.check_obj_fixture_contact(self, "pizza", self.dining_counter)
-        
-        gripper_far = (
-            OU.gripper_obj_far(self, obj_name="pizza_cutter", th=0.15) and
-            OU.gripper_obj_far(self, obj_name="pizza", th=0.15)
+        pizza_cutter_on_counter = OU.check_obj_fixture_contact(
+            self, "pizza_cutter", self.dining_counter
         )
-        
+
+        pizza_on_counter = OU.check_obj_fixture_contact(
+            self, "pizza", self.dining_counter
+        )
+
+        gripper_far = OU.gripper_obj_far(
+            self, obj_name="pizza_cutter", th=0.15
+        ) and OU.gripper_obj_far(self, obj_name="pizza", th=0.15)
+
         return pizza_cutter_on_counter and pizza_on_counter and gripper_far

@@ -22,7 +22,8 @@ class AddLemonToFish(Kitchen):
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
+            "dining_counter",
+            dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
         self.init_robot_base_ref = self.fridge
 
@@ -30,9 +31,9 @@ class AddLemonToFish(Kitchen):
         ep_meta = super().get_ep_meta()
         lemon_name = self.get_obj_lang("lemon_wedge")
         fish_name = self.get_obj_lang("fish")
-        ep_meta["lang"] = (
-            f"Take the {lemon_name} from the fridge and place it on the plate with {fish_name} on the dining counter."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Take the {lemon_name} from the fridge and place it on the plate with {fish_name} on the dining counter."
         return ep_meta
 
     def _setup_scene(self):
@@ -82,8 +83,12 @@ class AddLemonToFish(Kitchen):
         return cfgs
 
     def _check_success(self):
-        lemon_on_plate = OU.check_obj_in_receptacle(self, "lemon_wedge", "fish_container")
+        lemon_on_plate = OU.check_obj_in_receptacle(
+            self, "lemon_wedge", "fish_container"
+        )
         fish_on_plate = OU.check_obj_in_receptacle(self, "fish", "fish_container")
-        plate_on_table = OU.check_obj_fixture_contact(self, "fish_container", self.dining_counter)
+        plate_on_table = OU.check_obj_fixture_contact(
+            self, "fish_container", self.dining_counter
+        )
         gripper_far = OU.gripper_obj_far(self, "lemon_wedge")
         return lemon_on_plate and fish_on_plate and plate_on_table and gripper_far

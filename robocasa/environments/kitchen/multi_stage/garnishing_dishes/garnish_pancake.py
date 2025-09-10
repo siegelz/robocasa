@@ -23,15 +23,16 @@ class GarnishPancake(Kitchen):
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
+            "dining_counter",
+            dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
         self.init_robot_base_ref = self.fridge
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Take the strawberry from the fridge and place it on top of the pancake, located on the dining counter."
-        )
+        ep_meta[
+            "lang"
+        ] = "Take the strawberry from the fridge and place it on top of the pancake, located on the dining counter."
         return ep_meta
 
     def _setup_scene(self):
@@ -80,9 +81,15 @@ class GarnishPancake(Kitchen):
         return cfgs
 
     def _check_success(self):
-        strawberry_on_pancake = OU.check_obj_in_receptacle(self, "strawberry", "pancake")
-        pancake_on_plate = OU.check_obj_in_receptacle(self, "pancake", "pancake_container")
-        plate_on_table = OU.check_obj_fixture_contact(self, "pancake_container", self.dining_counter)
+        strawberry_on_pancake = OU.check_obj_in_receptacle(
+            self, "strawberry", "pancake"
+        )
+        pancake_on_plate = OU.check_obj_in_receptacle(
+            self, "pancake", "pancake_container"
+        )
+        plate_on_table = OU.check_obj_fixture_contact(
+            self, "pancake_container", self.dining_counter
+        )
         gripper_far_strawberry = OU.gripper_obj_far(self, "strawberry")
         return (
             strawberry_on_pancake

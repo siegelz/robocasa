@@ -23,7 +23,8 @@ class SizeSorting(Kitchen):
         super()._setup_kitchen_references()
         # sample a large enough counter for multiple stackable categories
         self.counter = self.register_fixture_ref(
-            "counter", dict(id=FixtureType.COUNTER, size=(0.9, 0.4), full_depth_region=True)
+            "counter",
+            dict(id=FixtureType.COUNTER, size=(0.9, 0.4), full_depth_region=True),
         )
         self.init_robot_base_ref = self.counter
         if "object_cfgs" in self._ep_meta:

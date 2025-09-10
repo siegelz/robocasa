@@ -23,7 +23,8 @@ class PrepareBroilingStation(Kitchen):
             "counter_oven", dict(id=FixtureType.COUNTER, ref=self.oven)
         )
         self.counter_items = self.register_fixture_ref(
-            "counter_items", dict(id=FixtureType.COUNTER_NON_CORNER, full_depth_region=True)
+            "counter_items",
+            dict(id=FixtureType.COUNTER_NON_CORNER, full_depth_region=True),
         )
         self.init_robot_base_ref = self.counter_items
 

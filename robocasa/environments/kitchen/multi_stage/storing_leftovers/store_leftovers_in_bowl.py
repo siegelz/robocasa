@@ -4,16 +4,16 @@ from robocasa.environments.kitchen.kitchen import *
 class StoreLeftoversInBowl(Kitchen):
     """
     Store Leftovers in Bowl: composite task for Storing Leftovers activity.
-    
+
     Simulates the process of storing leftover food items (chicken drumstick and a vegetable)
     from plates on the dining counter into a bowl and placing the bowl in the fridge.
     """
-    
+
     EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
 
@@ -39,26 +39,25 @@ class StoreLeftoversInBowl(Kitchen):
 
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
-        
+
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter",
-            dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
         )
-        
+
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
-        
+
         self.init_robot_base_ref = self.dining_counter
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         vegetable_lang = self.get_obj_lang("vegetable")
-        
+
         ep_meta["lang"] = (
             f"Pick the chicken drumstick and {vegetable_lang} from their plates "
             f"and place them in the bowl. Then put the bowl in the fridge."
         )
         return ep_meta
-    
+
     def _setup_scene(self):
         super()._setup_scene()
         self.fridge.open_door(self)
@@ -146,5 +145,5 @@ class StoreLeftoversInBowl(Kitchen):
         vegetable_in_bowl = OU.check_obj_in_receptacle(self, "vegetable", "bowl")
         bowl_in_fridge = self.fridge.check_rack_contact(self, "bowl")
         gripper_far = OU.gripper_obj_far(self, "bowl")
-        
+
         return chicken_in_bowl and vegetable_in_bowl and bowl_in_fridge and gripper_far

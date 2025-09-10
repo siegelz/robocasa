@@ -115,7 +115,7 @@ class ArrangeUtensilsByType(Kitchen):
         wooden_spoon_1_in_cabinet = OU.obj_inside_of(
             self, "wooden_spoon", self.cabinet
         ) and not OU.check_obj_fixture_contact(self, "wooden_spoon", self.counter)
-        
+
         wooden_spoon_2_in_cabinet = OU.obj_inside_of(
             self, "wooden_spoon_2", self.cabinet
         ) and not OU.check_obj_fixture_contact(self, "wooden_spoon_2", self.counter)
@@ -123,7 +123,7 @@ class ArrangeUtensilsByType(Kitchen):
         metallic_utensil_1_in_drawer = OU.obj_inside_of(
             self, "metallic_utensil", self.drawer
         ) and not OU.check_obj_fixture_contact(self, "metallic_utensil", self.counter)
-        
+
         metallic_utensil_2_in_drawer = OU.obj_inside_of(
             self, "metallic_utensil_2", self.drawer
         ) and not OU.check_obj_fixture_contact(self, "metallic_utensil_2", self.counter)

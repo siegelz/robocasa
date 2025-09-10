@@ -15,7 +15,9 @@ class SetupButterPlate(Kitchen):
 
     EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
 
-    def __init__(self, obj_registries=("objaverse", "lightwheel", "aigen"), *args, **kwargs):
+    def __init__(
+        self, obj_registries=("objaverse", "lightwheel", "aigen"), *args, **kwargs
+    ):
         super().__init__(obj_registries=obj_registries, *args, **kwargs)
 
     def _setup_kitchen_references(self):

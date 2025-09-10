@@ -13,7 +13,9 @@ class RetrieveIceTray(Kitchen):
         3. Place it on the dining counter, where there is a glass cup.
     """
 
-    EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS + Kitchen.FREEZER_EXCLUDED_LAYOUTS
+    EXCLUDE_LAYOUTS = (
+        Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS + Kitchen.FREEZER_EXCLUDED_LAYOUTS
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,8 +25,7 @@ class RetrieveIceTray(Kitchen):
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter",
-            dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
         self.init_robot_base_ref = self.fridge
 
@@ -54,7 +55,7 @@ class RetrieveIceTray(Kitchen):
                     ),
                     size=(0.25, 0.3),
                     pos=(0, -1.0),
-                    rotation=(np.pi/2, np.pi/2),
+                    rotation=(np.pi / 2, np.pi / 2),
                 ),
             )
         )
@@ -92,6 +93,8 @@ class RetrieveIceTray(Kitchen):
         return cfgs
 
     def _check_success(self):
-        on_counter = OU.check_obj_fixture_contact(self, "ice_cube_tray", self.dining_counter)
+        on_counter = OU.check_obj_fixture_contact(
+            self, "ice_cube_tray", self.dining_counter
+        )
         gripper_far = OU.gripper_obj_far(self, "ice_cube_tray")
         return on_counter and gripper_far

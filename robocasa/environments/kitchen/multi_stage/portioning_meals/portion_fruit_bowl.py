@@ -51,10 +51,10 @@ class PortionFruitBowl(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
-        ep_meta["lang"] = (
-            "Take the fruits from the plate on the dining counter and place two fruits in each bowl."
-        )
+
+        ep_meta[
+            "lang"
+        ] = "Take the fruits from the plate on the dining counter and place two fruits in each bowl."
         return ep_meta
 
     def _setup_scene(self):

@@ -82,6 +82,7 @@ class PressChicken(Kitchen):
                     fixture=self.counter,
                     sample_region_kwargs=dict(
                         ref=self.stove,
+                        loc="left_right",
                     ),
                     size=(0.50, 0.30),
                     pos=("ref", -1.0),

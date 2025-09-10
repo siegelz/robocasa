@@ -66,13 +66,13 @@ class DistributeChicken(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
+
         ep_meta["refs"] = ep_meta.get("refs", {})
         ep_meta["refs"]["knob"] = self.knob
-        
-        ep_meta["lang"] = (
-            "Take the chicken drumsticks from the pan and place one on each plate on the dining counter."
-        )
+
+        ep_meta[
+            "lang"
+        ] = "Take the chicken drumsticks from the pan and place one on each plate on the dining counter."
         return ep_meta
 
     def _setup_scene(self):

@@ -53,10 +53,8 @@ class PortionHotDogs(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
-        ep_meta["lang"] = (
-            "Place one bun and one sausage from the bowl on each plate."
-        )
+
+        ep_meta["lang"] = "Place one bun and one sausage from the bowl on each plate."
         return ep_meta
 
     def _setup_scene(self):
@@ -185,6 +183,10 @@ class PortionHotDogs(Kitchen):
                 gripper_far = False
                 break
 
-        return (buns_in_plate1 == 1 and sausages_in_plate1 == 1 and 
-                buns_in_plate2 == 1 and sausages_in_plate2 == 1 and 
-                gripper_far)
+        return (
+            buns_in_plate1 == 1
+            and sausages_in_plate1 == 1
+            and buns_in_plate2 == 1
+            and sausages_in_plate2 == 1
+            and gripper_far
+        )

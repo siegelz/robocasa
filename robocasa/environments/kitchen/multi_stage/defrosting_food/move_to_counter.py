@@ -11,9 +11,10 @@ class MoveToCounter(Kitchen):
         Pick place all of the fruits in the running sink and all of the
         vegetables in a bowl on the counter.
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
@@ -30,9 +31,9 @@ class MoveToCounter(Kitchen):
         ep_meta = super().get_ep_meta()
         food_lang = self.get_obj_lang("frosted_food")
         plate_lang = self.get_obj_lang("plate")
-        ep_meta["lang"] = (
-            f"Pick {food_lang} from the fridge and place it on the {plate_lang} on the counter."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Pick {food_lang} from the fridge and place it on the {plate_lang} on the counter."
         return ep_meta
 
     def _get_obj_cfgs(self):
@@ -50,7 +51,7 @@ class MoveToCounter(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_obj",

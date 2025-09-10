@@ -16,7 +16,7 @@ class GatherTableware(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        
+
         if "cab1" in self.fixture_refs:
             self.cab = self.fixture_refs["cab1"]
             self.cab2 = self.fixture_refs["cab2"]
@@ -28,7 +28,9 @@ class GatherTableware(Kitchen):
                 for _ in range(100):  # 20 attempts
                     # sample until at least 2 different cabinets are selected
                     self.cab2 = self.get_fixture(FixtureType.CABINET)
-                    if self.cab2 != self.cab: #We only check for 2 different cabinets as there might only be two cabinets
+                    if (
+                        self.cab2 != self.cab
+                    ):  # We only check for 2 different cabinets as there might only be two cabinets
                         valid_cab_config_found = True
                         break
 
@@ -37,8 +39,7 @@ class GatherTableware(Kitchen):
 
             self.fixture_refs["cab1"] = self.cab
             self.fixture_refs["cab2"] = self.cab2
-        
-        
+
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cab)
         )
@@ -47,9 +48,9 @@ class GatherTableware(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
 
-        ep_meta["lang"] = (
-            "Gather all objects into one cabinet and sort the glasses and bowls to opposite sides."
-        )
+        ep_meta[
+            "lang"
+        ] = "Gather all objects into one cabinet and sort the glasses and bowls to opposite sides."
         return ep_meta
 
     def _setup_scene(self):
@@ -75,7 +76,7 @@ class GatherTableware(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="glass2",
@@ -88,7 +89,7 @@ class GatherTableware(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="glass3",
@@ -101,7 +102,7 @@ class GatherTableware(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="bowl",
@@ -116,7 +117,7 @@ class GatherTableware(Kitchen):
         )
 
         return cfgs
-    
+
     def dist_between_obj(self, obj_name1, obj_name2):
         obj1 = self.objects[obj_name1]
         obj2 = self.objects[obj_name2]
@@ -131,16 +132,21 @@ class GatherTableware(Kitchen):
         glass1_glass2 = self.dist_between_obj("glass1", "glass2")
         glass2_glass3 = self.dist_between_obj("glass2", "glass3")
         glass3_glass1 = self.dist_between_obj("glass3", "glass1")
-        
+
         bowl1_glass1 = self.dist_between_obj("bowl", "glass1")
         bowl1_glass2 = self.dist_between_obj("bowl", "glass2")
         bowl1_glass3 = self.dist_between_obj("bowl", "glass3")
-        
+
         max_glass = max(glass1_glass2, glass2_glass3, glass3_glass1)
         max_bowl = max(bowl1_glass1, bowl1_glass2, bowl1_glass3)
-        
+
         far_from_obj1 = OU.gripper_obj_far(self, obj_name="glass1")
         far_from_obj2 = OU.gripper_obj_far(self, obj_name="glass2")
         far_from_obj3 = OU.gripper_obj_far(self, obj_name="glass3")
-        
-        return far_from_obj1 and far_from_obj2 and far_from_obj3 and max_glass * 1.5 < max_bowl
+
+        return (
+            far_from_obj1
+            and far_from_obj2
+            and far_from_obj3
+            and max_glass * 1.5 < max_bowl
+        )

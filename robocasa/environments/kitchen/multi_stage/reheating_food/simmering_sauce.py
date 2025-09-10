@@ -62,7 +62,11 @@ class SimmeringSauce(Kitchen):
                 obj_groups="pan",
                 placement=dict(
                     fixture=self.counter,
-                    sample_region_kwargs=dict(ref=self.stove, top_size=(0.50, 0.40)),
+                    sample_region_kwargs=dict(
+                        ref=self.stove,
+                        loc="left_right",
+                        top_size=(0.50, 0.40),
+                    ),
                     size=(0.40, 0.50),
                     pos=("ref", -1.0),
                 ),
@@ -77,6 +81,7 @@ class SimmeringSauce(Kitchen):
                     fixture=self.counter,
                     sample_region_kwargs=dict(
                         ref=self.stove,
+                        loc="left_right",
                     ),
                     size=(0.35, 0.2),
                     pos=("ref", -1.0),
@@ -92,6 +97,7 @@ class SimmeringSauce(Kitchen):
                     fixture=self.counter,
                     sample_region_kwargs=dict(
                         ref=self.stove,
+                        loc="left_right",
                     ),
                     size=(0.35, 0.2),
                     pos=("ref", 0.0),

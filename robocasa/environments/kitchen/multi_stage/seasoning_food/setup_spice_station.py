@@ -31,7 +31,7 @@ class SetUpSpiceStation(Kitchen):
         spice = self.get_obj_lang("spice")
         bottle = self.get_obj_lang("bottle")
         shaker = self.get_obj_lang("shaker")
-        
+
         ep_meta[
             "lang"
         ] = f"Collect the {spice}, {bottle}, and {shaker} from the cabinet and place them next to the stove."

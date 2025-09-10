@@ -171,7 +171,8 @@ if __name__ == "__main__":
             json.dumps(OrderedDict(sorted(layout_counts.items())), indent=4),
         )
         print(
-            "style_counts:", json.dumps(OrderedDict(sorted(style_counts.items())), indent=4)
+            "style_counts:",
+            json.dumps(OrderedDict(sorted(style_counts.items())), indent=4),
         )
         print("num unique lang instructions:", len(set(langs)))
 

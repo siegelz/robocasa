@@ -9,7 +9,7 @@ class GatherMarinadeIngredients(Kitchen):
 
     Steps:
         Retrieve garlic from the fridge and place them in the mixing bowl.
-        Retrieve oil/vinegar bottle and shaker from the cabinet and place them 
+        Retrieve oil/vinegar bottle and shaker from the cabinet and place them
         next to the mixing bowl on the counter.
 
     """
@@ -19,7 +19,9 @@ class GatherMarinadeIngredients(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET_WITH_DOOR))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET_WITH_DOOR)
+        )
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cabinet)
@@ -28,7 +30,7 @@ class GatherMarinadeIngredients(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
+
         ep_meta["lang"] = (
             f"Retrieve the bottle and the shaker from the cabinet "
             f"and place them next to the mixing bowl on the counter. "
@@ -123,11 +125,15 @@ class GatherMarinadeIngredients(Kitchen):
         oil_on_counter = OU.check_obj_any_counter_contact(self, "oil_or_vinegar_bottle")
         shaker_on_counter = OU.check_obj_any_counter_contact(self, "shaker")
 
-        bowl_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["mixing_bowl"]])[:2]
-        oil_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["oil_or_vinegar_bottle"]])[:2]
+        bowl_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["mixing_bowl"]])[
+            :2
+        ]
+        oil_pos = np.array(
+            self.sim.data.body_xpos[self.obj_body_id["oil_or_vinegar_bottle"]]
+        )[:2]
         cond_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["shaker"]])[:2]
 
-        oil_near_bowl = np.linalg.norm(oil_pos  - bowl_pos) <= 0.3
+        oil_near_bowl = np.linalg.norm(oil_pos - bowl_pos) <= 0.3
         cond_near_bowl = np.linalg.norm(cond_pos - bowl_pos) <= 0.3
 
         all_far = all(
@@ -139,7 +145,9 @@ class GatherMarinadeIngredients(Kitchen):
             )
         )
 
-        bowl_on_counter = OU.check_obj_fixture_contact(self, "mixing_bowl", self.counter)
+        bowl_on_counter = OU.check_obj_fixture_contact(
+            self, "mixing_bowl", self.counter
+        )
 
         return (
             garlic_in_bowl

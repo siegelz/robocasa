@@ -73,7 +73,7 @@ class SeasoningSteak(Kitchen):
 
     def _check_success(self):
         # this is necessary to detect if the dining counter is rotated around the global/absolute coordinate system
-        _,rel_rot = OU.get_rel_transform(self.dining_counter, self.stool)
+        _, rel_rot = OU.get_rel_transform(self.dining_counter, self.stool)
         relative_yaw = np.arctan2(rel_rot[1, 0], rel_rot[0, 0])
 
         steak_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["steak"]])

@@ -5,15 +5,15 @@ class MicrowaveThawingFridge(Kitchen):
     """
     Microwave Thawing Fridge: composite task for Defrosting Food activity.
     Simulates the task of defrosting food in a microwave.
-    
+
     Steps:
         Pick the frozen food from the fridge and place it in the microwave.
         Then, close the microwave door and turn it on.
     """
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.microwave = self.register_fixture_ref(
@@ -30,9 +30,9 @@ class MicrowaveThawingFridge(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         meat_lang = self.get_obj_lang("meat")
-        ep_meta["lang"] = (
-            f"Transport the {meat_lang} from the fridge to the microwave and turn on the microwave."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Transport the {meat_lang} from the fridge to the microwave and turn on the microwave."
         return ep_meta
 
     def _get_obj_cfgs(self):
@@ -51,7 +51,7 @@ class MicrowaveThawingFridge(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="vegetable",
@@ -64,7 +64,7 @@ class MicrowaveThawingFridge(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="container",

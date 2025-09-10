@@ -42,7 +42,9 @@ class StirTea(Kitchen):
                 obj_groups="jug_wide_opening",
                 placement=dict(
                     fixture=self.counter,
-                    sample_region_kwargs=dict(top_size=(0.6, 0.4), full_depth_region=True),
+                    sample_region_kwargs=dict(
+                        top_size=(0.6, 0.4), full_depth_region=True
+                    ),
                     size=(1, 0.4),
                     pos=(0, -1.0),
                 ),

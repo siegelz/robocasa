@@ -13,8 +13,12 @@ class MakeIcedCoffee(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET))
-        self.counter = self.register_fixture_ref("counter", dict(id=FixtureType.COUNTER, ref=self.cabinet))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET)
+        )
+        self.counter = self.register_fixture_ref(
+            "counter", dict(id=FixtureType.COUNTER, ref=self.cabinet)
+        )
         self.init_robot_base_ref = self.counter
 
     def get_ep_meta(self):
@@ -90,9 +94,9 @@ class MakeIcedCoffee(Kitchen):
         ice1_in_cup = OU.check_obj_in_receptacle(self, "ice_cube1", "cup", th=0.5)
         ice2_in_cup = OU.check_obj_in_receptacle(self, "ice_cube2", "cup", th=0.5)
         ice_in_cup = ice1_in_cup or ice2_in_cup
-        
+
         gripper_far_from_ice1 = OU.gripper_obj_far(self, "ice_cube1", th=0.15)
         gripper_far_from_ice2 = OU.gripper_obj_far(self, "ice_cube2", th=0.15)
         gripper_far = gripper_far_from_ice1 and gripper_far_from_ice2
-        
+
         return ice_in_cup and gripper_far

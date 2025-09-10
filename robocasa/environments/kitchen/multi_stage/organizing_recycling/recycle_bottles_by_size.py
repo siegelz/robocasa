@@ -21,9 +21,6 @@ class RecycleBottlesBySize(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.sink = self.register_fixture_ref("sink", dict(id=FixtureType.SINK))
-        self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
-        )
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.sink)
         )
@@ -42,6 +39,10 @@ class RecycleBottlesBySize(Kitchen):
                             if self.stool is None:
                                 self.stool = fixture
             self.fixture_refs["stool"] = self.stool
+
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
+        )
 
         self.init_robot_base_ref = self.dining_counter
 

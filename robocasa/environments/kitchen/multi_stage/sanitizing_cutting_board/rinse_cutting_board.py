@@ -34,7 +34,7 @@ class RinseCuttingBoard(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="cutting_board",
@@ -44,7 +44,7 @@ class RinseCuttingBoard(Kitchen):
                     fixture=self.sink,
                     size=(1.0, 0.7),
                     pos=(0, 1.0),
-                    rotation=np.pi/2,
+                    rotation=np.pi / 2,
                 ),
             )
         )
@@ -55,18 +55,18 @@ class RinseCuttingBoard(Kitchen):
         handle_state = self.sink.get_handle_state(self)
         water_on = handle_state["water_on"]
         water_temp = handle_state["water_temp"]
-        
+
         water_hot = water_temp >= 0.6
-        
+
         # Check if cutting board is under water
         board_under_water = self.sink.check_obj_under_water(self, "cutting_board")
-        
+
         if water_on and water_hot and board_under_water:
             self.rinsing_time += 1
-        
+
         if self.rinsing_time >= 100:
             can_turn_off = True
         else:
             can_turn_off = False
-        
+
         return not water_on and can_turn_off

@@ -22,11 +22,11 @@ class PackFoodByTemp(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
-        self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
-        )
         self.stove = self.register_fixture_ref("stove", dict(id=FixtureType.STOVE))
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
+        )
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.stove)
         )
@@ -65,13 +65,21 @@ class PackFoodByTemp(Kitchen):
         return ep_meta
 
     def _get_obj_cfgs(self):
-        from robocasa.models.objects.kitchen_objects import get_cats_by_type, OBJ_CATEGORIES
+        from robocasa.models.objects.kitchen_objects import (
+            get_cats_by_type,
+            OBJ_CATEGORIES,
+        )
+
         cfgs = []
 
         # Preselect hot and cold categories
-        hot_categories = get_cats_by_type(types=["cooked_food"], obj_registries=self.obj_registries)
-        cold_categories = get_cats_by_type(types=["fruit", "vegetable"], obj_registries=self.obj_registries)
-        
+        hot_categories = get_cats_by_type(
+            types=["cooked_food"], obj_registries=self.obj_registries
+        )
+        cold_categories = get_cats_by_type(
+            types=["fruit", "vegetable"], obj_registries=self.obj_registries
+        )
+
         # Filter for graspable categories
         graspable_hot_categories = []
         for cat in hot_categories:
@@ -79,16 +87,18 @@ class PackFoodByTemp(Kitchen):
                 if reg in OBJ_CATEGORIES[cat] and OBJ_CATEGORIES[cat][reg].graspable:
                     graspable_hot_categories.append(cat)
                     break
-        
+
         graspable_cold_categories = []
         for cat in cold_categories:
             for reg in self.obj_registries:
                 if reg in OBJ_CATEGORIES[cat] and OBJ_CATEGORIES[cat][reg].graspable:
                     graspable_cold_categories.append(cat)
                     break
-        
+
         selected_hot = self.rng.choice(graspable_hot_categories, size=2, replace=False)
-        selected_cold = self.rng.choice(graspable_cold_categories, size=2, replace=False)
+        selected_cold = self.rng.choice(
+            graspable_cold_categories, size=2, replace=False
+        )
 
         cfgs.append(
             dict(
@@ -191,8 +201,8 @@ class PackFoodByTemp(Kitchen):
         cold1_in_0 = OU.check_obj_in_receptacle(self, "cold1", "tupperware0")
 
         return (
-            (hot0_in_0 and hot1_in_0 and cold0_in_1 and cold1_in_1) or
-            (hot0_in_1 and hot1_in_1 and cold0_in_0 and cold1_in_0)
+            (hot0_in_0 and hot1_in_0 and cold0_in_1 and cold1_in_1)
+            or (hot0_in_1 and hot1_in_1 and cold0_in_0 and cold1_in_0)
             and OU.gripper_obj_far(self, "hot0")
             and OU.gripper_obj_far(self, "hot1")
             and OU.gripper_obj_far(self, "cold0")

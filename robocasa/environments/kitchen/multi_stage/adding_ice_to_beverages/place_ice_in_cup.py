@@ -20,13 +20,9 @@ class PlaceIceInCup(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.stool = self.register_fixture_ref(
-            "stool",
-            dict(id=FixtureType.STOOL)
-        )
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter",
-            dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
         self.init_robot_base_ref = self.dining_counter
 
@@ -116,13 +112,16 @@ class PlaceIceInCup(Kitchen):
         gripper_far_ice1 = OU.gripper_obj_far(self, "ice_cube1", th=0.15)
         gripper_far_ice2 = OU.gripper_obj_far(self, "ice_cube2", th=0.15)
 
-        ice1_ice2_contact = self.check_contact(self.objects["ice_cube1"], self.objects["ice_cube2"])
+        ice1_ice2_contact = self.check_contact(
+            self.objects["ice_cube1"], self.objects["ice_cube2"]
+        )
 
         success = (
             (
-                (ice1_in_cup and (ice2_in_cup or ice1_ice2_contact)) or
-                (ice2_in_cup and (ice1_in_cup or ice1_ice2_contact))
+                (ice1_in_cup and (ice2_in_cup or ice1_ice2_contact))
+                or (ice2_in_cup and (ice1_in_cup or ice1_ice2_contact))
             )
-            and gripper_far_ice1 and gripper_far_ice2
+            and gripper_far_ice1
+            and gripper_far_ice2
         )
         return success

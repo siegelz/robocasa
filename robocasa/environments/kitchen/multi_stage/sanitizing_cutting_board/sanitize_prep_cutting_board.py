@@ -18,8 +18,12 @@ class SanitizePrepCuttingBoard(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.sink = self.register_fixture_ref("sink", dict(id=FixtureType.SINK))
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET))
-        self.counter_cab = self.register_fixture_ref("counter_cab", dict(id=FixtureType.COUNTER, ref=self.cabinet))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET)
+        )
+        self.counter_cab = self.register_fixture_ref(
+            "counter_cab", dict(id=FixtureType.COUNTER, ref=self.cabinet)
+        )
         self.counter_sink = self.register_fixture_ref(
             "counter_sink", dict(id=FixtureType.COUNTER, ref=self.sink)
         )
@@ -39,7 +43,7 @@ class SanitizePrepCuttingBoard(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="cutting_board",
@@ -48,7 +52,7 @@ class SanitizePrepCuttingBoard(Kitchen):
                 placement=dict(
                     fixture=self.counter_cab,
                     sample_region_kwargs=dict(
-                        ref=self.cabinet, 
+                        ref=self.cabinet,
                     ),
                     size=(0.5, 0.5),
                     pos=("ref", -1.0),
@@ -77,8 +81,8 @@ class SanitizePrepCuttingBoard(Kitchen):
                 placement=dict(
                     fixture=self.counter_sink,
                     sample_region_kwargs=dict(
-                        ref=self.sink, 
-                        loc="left_right", 
+                        ref=self.sink,
+                        loc="left_right",
                     ),
                     size=(0.3, 0.5),
                     pos=("ref", -1.0),
@@ -89,28 +93,34 @@ class SanitizePrepCuttingBoard(Kitchen):
         return cfgs
 
     def _check_success(self):
-        cutting_board_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["cutting_board"]])
+        cutting_board_pos = np.array(
+            self.sim.data.body_xpos[self.obj_body_id["cutting_board"]]
+        )
         spray_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["spray"]])
-        dish_brush_pos = np.array(self.sim.data.body_xpos[self.obj_body_id["dish_brush"]])
-        
+        dish_brush_pos = np.array(
+            self.sim.data.body_xpos[self.obj_body_id["dish_brush"]]
+        )
+
         spray_distance = np.linalg.norm(spray_pos[:2] - cutting_board_pos[:2])
         brush_distance = np.linalg.norm(dish_brush_pos[:2] - cutting_board_pos[:2])
-        
+
         spray_near_board = spray_distance <= 0.35
         brush_near_board = brush_distance <= 0.35
 
         spray_on_counter = OU.check_obj_any_counter_contact(self, "spray")
         brush_on_counter = OU.check_obj_any_counter_contact(self, "dish_brush")
-        cutting_board_on_counter = OU.check_obj_any_counter_contact(self, "cutting_board")
-        
+        cutting_board_on_counter = OU.check_obj_any_counter_contact(
+            self, "cutting_board"
+        )
+
         gripper_far_spray = OU.gripper_obj_far(self, "spray")
         gripper_far_brush = OU.gripper_obj_far(self, "dish_brush")
-        
+
         return (
-            spray_near_board 
-            and brush_near_board 
+            spray_near_board
+            and brush_near_board
             and cutting_board_on_counter
-            and gripper_far_spray 
+            and gripper_far_spray
             and gripper_far_brush
             and spray_on_counter
             and brush_on_counter

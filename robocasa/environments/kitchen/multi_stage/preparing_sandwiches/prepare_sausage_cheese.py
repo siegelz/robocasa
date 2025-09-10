@@ -14,7 +14,9 @@ class PrepareSausageCheese(Kitchen):
         3) Ensure bread and knife are next to the cutting board for slicing later.
     """
 
-    def __init__(self, obj_registries=("aigen", "objaverse", "lightwheel"), *args, **kwargs):
+    def __init__(
+        self, obj_registries=("aigen", "objaverse", "lightwheel"), *args, **kwargs
+    ):
         super().__init__(obj_registries=obj_registries, *args, **kwargs)
 
     def _setup_kitchen_references(self):
@@ -22,7 +24,8 @@ class PrepareSausageCheese(Kitchen):
 
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.counter = self.register_fixture_ref(
-            "counter", dict(id=FixtureType.COUNTER, size=(0.9, 0.6), full_depth_region=True)
+            "counter",
+            dict(id=FixtureType.COUNTER, size=(0.9, 0.6), full_depth_region=True),
         )
 
         self.init_robot_base_ref = self.fridge

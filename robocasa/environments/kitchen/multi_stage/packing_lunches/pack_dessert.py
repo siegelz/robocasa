@@ -26,9 +26,9 @@ class PackDessert(Kitchen):
         ep_meta = super().get_ep_meta()
         sweets_lang = self.get_obj_lang("dessert")
         cooked_lang = self.get_obj_lang("cooked_food")
-        ep_meta["lang"] = (
-            f"Add the {sweets_lang} to the tupperware that contains the {cooked_lang}."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Add the {sweets_lang} to the tupperware that contains the {cooked_lang}."
         return ep_meta
 
     def _get_obj_cfgs(self):

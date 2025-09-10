@@ -32,6 +32,7 @@ class KettleBoiling(Kitchen):
                     fixture=self.counter,
                     sample_region_kwargs=dict(
                         ref=self.stove,
+                        loc="left_right",
                     ),
                     size=(0.35, 0.35),
                     pos=("ref", -1),

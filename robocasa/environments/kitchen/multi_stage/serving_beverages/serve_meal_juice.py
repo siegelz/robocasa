@@ -25,9 +25,6 @@ class ServeMealJuice(Kitchen):
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cabinet)
         )
-        self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
-        )
 
         if "stool1" in self.fixture_refs:
             self.stool1 = self.fixture_refs["stool1"]
@@ -51,6 +48,10 @@ class ServeMealJuice(Kitchen):
 
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
+
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
+        )
 
         self.init_robot_base_ref = self.counter
 

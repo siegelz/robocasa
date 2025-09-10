@@ -25,7 +25,7 @@ class RemoveCuttingBoardItems(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        vegetable_lang = self.get_obj_lang("vegetable") 
+        vegetable_lang = self.get_obj_lang("vegetable")
         meat_lang = self.get_obj_lang("meat")
         ep_meta[
             "lang"
@@ -34,7 +34,7 @@ class RemoveCuttingBoardItems(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="cutting_board",
@@ -43,8 +43,8 @@ class RemoveCuttingBoardItems(Kitchen):
                 placement=dict(
                     fixture=self.counter,
                     sample_region_kwargs=dict(
-                        ref=self.sink, 
-                        loc="left_right", 
+                        ref=self.sink,
+                        loc="left_right",
                     ),
                     size=(0.5, 0.5),
                     pos=("ref", -1.0),
@@ -52,7 +52,7 @@ class RemoveCuttingBoardItems(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="vegetable",
@@ -64,7 +64,7 @@ class RemoveCuttingBoardItems(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="meat",
@@ -83,18 +83,11 @@ class RemoveCuttingBoardItems(Kitchen):
         vegetable_off_board = not OU.check_obj_in_receptacle(
             self, "vegetable", "cutting_board"
         )
-        
-        meat_off_board = not OU.check_obj_in_receptacle(
-            self, "meat", "cutting_board"
-        )
-        
-        gripper_far = (
-            OU.gripper_obj_far(self, "vegetable") 
-            and OU.gripper_obj_far(self, "meat")
+
+        meat_off_board = not OU.check_obj_in_receptacle(self, "meat", "cutting_board")
+
+        gripper_far = OU.gripper_obj_far(self, "vegetable") and OU.gripper_obj_far(
+            self, "meat"
         )
 
-        return (
-            vegetable_off_board
-            and meat_off_board
-            and gripper_far
-        )
+        return vegetable_off_board and meat_off_board and gripper_far

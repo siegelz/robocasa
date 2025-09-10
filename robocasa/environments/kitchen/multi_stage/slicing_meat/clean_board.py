@@ -6,7 +6,7 @@ class CleanBoard(Kitchen):
     Clean Board: composite task for "Slicing Meat" activity.
 
     Simulates the act of cleaning the cutting board after cutting meat.
-    
+
 
     Steps:
         Pick the knife and place it in the sink.
@@ -14,7 +14,8 @@ class CleanBoard(Kitchen):
         Place the spray from the cabinet right above the counter on the counter.
 
     """
-    #I found that sliding the cutting board off the counter slightly to pick it up to be easiest.
+
+    # I found that sliding the cutting board off the counter slightly to pick it up to be easiest.
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -36,7 +37,9 @@ class CleanBoard(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
 
-        ep_meta["lang"] = f"Move the cutting board and knife to the sink. Then move spray from the {self.cabinet.nat_lang} to the counter."
+        ep_meta[
+            "lang"
+        ] = f"Move the cutting board and knife to the sink. Then move spray from the {self.cabinet.nat_lang} to the counter."
 
         return ep_meta
 
@@ -59,10 +62,10 @@ class CleanBoard(Kitchen):
                     fixture=self.cabinet,
                     size=(0.3, 0.3),
                     pos=(-0.6, -0.5),
-                )
+                ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="receptacle",
@@ -76,7 +79,7 @@ class CleanBoard(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="knife",
@@ -96,8 +99,12 @@ class CleanBoard(Kitchen):
 
         knife_in_sink = OU.obj_inside_of(self, "knife", self.sink)
         board_in_sink = OU.obj_inside_of(self, "receptacle", self.sink)
-        
+
         spray_on_counter = OU.check_obj_fixture_contact(self, "spray", self.counter)
-        gripper_far = OU.gripper_obj_far(self, "knife") and OU.gripper_obj_far(self, "receptacle") and OU.gripper_obj_far(self, "spray")
+        gripper_far = (
+            OU.gripper_obj_far(self, "knife")
+            and OU.gripper_obj_far(self, "receptacle")
+            and OU.gripper_obj_far(self, "spray")
+        )
 
         return knife_in_sink and board_in_sink and spray_on_counter and gripper_far

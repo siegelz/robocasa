@@ -14,19 +14,19 @@ class SetupWineGlasses(Kitchen):
 
     EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
 
-    def __init__(self, obj_registries=("objaverse", "lightwheel", "aigen"), *args, **kwargs):
+    def __init__(
+        self, obj_registries=("objaverse", "lightwheel", "aigen"), *args, **kwargs
+    ):
         super().__init__(obj_registries=obj_registries, *args, **kwargs)
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
 
-        self.cabinet = self.register_fixture_ref("cabinet", dict(id=FixtureType.CABINET))
+        self.cabinet = self.register_fixture_ref(
+            "cabinet", dict(id=FixtureType.CABINET)
+        )
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.cabinet)
-        )
-
-        self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
         )
 
         if "stool1" in self.fixture_refs:
@@ -51,6 +51,10 @@ class SetupWineGlasses(Kitchen):
 
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
+
+        self.dining_counter = self.register_fixture_ref(
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
+        )
 
         self.init_robot_base_ref = self.counter
 

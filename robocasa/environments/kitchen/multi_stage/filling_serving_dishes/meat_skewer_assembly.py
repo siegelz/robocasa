@@ -19,9 +19,7 @@ class MeatSkewerAssembly(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        self.stool = self.register_fixture_ref(
-            "stool", dict(id=FixtureType.STOOL)
-        )
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
             "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
@@ -29,9 +27,9 @@ class MeatSkewerAssembly(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            f"Move the kebab skewers from the plate to the oven tray for oven preparation."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Move the kebab skewers from the plate to the oven tray for oven preparation."
         return ep_meta
 
     def _setup_scene(self):
@@ -61,10 +59,7 @@ class MeatSkewerAssembly(Kitchen):
             dict(
                 name="skewer1",
                 obj_groups="kebab_skewer",
-                placement=dict(
-                    object="skewer_plate",
-                    size=(1.0, 1.0)
-                ),
+                placement=dict(object="skewer_plate", size=(1.0, 1.0)),
             )
         )
 
@@ -72,10 +67,7 @@ class MeatSkewerAssembly(Kitchen):
             dict(
                 name="skewer2",
                 obj_groups="kebab_skewer",
-                placement=dict(
-                    object="skewer_plate",
-                    size=(1.0, 1.0)
-                ),
+                placement=dict(object="skewer_plate", size=(1.0, 1.0)),
             )
         )
 
@@ -102,11 +94,12 @@ class MeatSkewerAssembly(Kitchen):
         skewer1_on_tray = OU.check_obj_in_receptacle(self, "skewer1", "oven_tray")
         skewer2_on_tray = OU.check_obj_in_receptacle(self, "skewer2", "oven_tray")
 
-        tray_on_counter = OU.check_obj_fixture_contact(self, "oven_tray", self.dining_counter)
+        tray_on_counter = OU.check_obj_fixture_contact(
+            self, "oven_tray", self.dining_counter
+        )
 
-        gripper_far = (
-            OU.gripper_obj_far(self, "skewer1") and 
-            OU.gripper_obj_far(self, "skewer2")
+        gripper_far = OU.gripper_obj_far(self, "skewer1") and OU.gripper_obj_far(
+            self, "skewer2"
         )
 
         return skewer1_on_tray and skewer2_on_tray and tray_on_counter and gripper_far

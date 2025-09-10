@@ -51,10 +51,10 @@ class PortionInTupperware(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
-        ep_meta["lang"] = (
-            "Place one cooked food and one vegetable from the large plate to each tupperware container."
-        )
+
+        ep_meta[
+            "lang"
+        ] = "Place one cooked food and one vegetable from the large plate to each tupperware container."
         return ep_meta
 
     def _setup_scene(self):
@@ -75,7 +75,7 @@ class PortionInTupperware(Kitchen):
                     ),
                     size=(1.0, 0.5),
                     pos=("ref", -1.0),
-                    rotation=np.pi/2,
+                    rotation=np.pi / 2,
                 ),
             )
         )
@@ -92,7 +92,7 @@ class PortionInTupperware(Kitchen):
                     ),
                     size=(1.0, 0.5),
                     pos=("ref", -1.0),
-                    rotation=np.pi/2,
+                    rotation=np.pi / 2,
                 ),
             )
         )
@@ -191,6 +191,10 @@ class PortionInTupperware(Kitchen):
                 gripper_far = False
                 break
 
-        return (cooked_food_in_tupperware1 == 1 and vegetable_in_tupperware1 == 1 and 
-                cooked_food_in_tupperware2 == 1 and vegetable_in_tupperware2 == 1 and 
-                gripper_far)
+        return (
+            cooked_food_in_tupperware1 == 1
+            and vegetable_in_tupperware1 == 1
+            and cooked_food_in_tupperware2 == 1
+            and vegetable_in_tupperware2 == 1
+            and gripper_far
+        )

@@ -1007,6 +1007,8 @@ def _get_placement_initializer(env, cfg_list, z_offset=0.01):
         # infer and fill in rest of configs now
         elif fixture_id is None:
             target_size = placement.get("size", None)
+            if target_size is None:
+                target_size = (0.0, 0.0)
             x_range = np.array([-target_size[0] / 2, target_size[0] / 2])
             y_range = np.array([-target_size[1] / 2, target_size[1] / 2])
             ref_pos = [0, 0, 0]

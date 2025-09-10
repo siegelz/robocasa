@@ -17,7 +17,6 @@ class CuttingToolSelection(ManipulateDrawer):
         "cucumber": "peeler",
         "potato": "peeler",
         "avocado": "knife",
-
     }
 
     def __init__(self, *args, **kwargs):

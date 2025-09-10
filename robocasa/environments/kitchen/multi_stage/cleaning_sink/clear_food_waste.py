@@ -5,7 +5,7 @@ class ClearFoodWaste(Kitchen):
     """
     Clear Food Waste: composite task for Cleaning Sink activity.
     Simulates the process of moving food items out of the sink and into a receptacle.
-    
+
     Steps:
         1. Move the food items out of the sink and into the colander.
     """
@@ -24,9 +24,7 @@ class ClearFoodWaste(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Move the food items out of the sink and into the colander."
-        )
+        ep_meta["lang"] = "Move the food items out of the sink and into the colander."
         return ep_meta
 
     def _setup_scene(self):
@@ -73,12 +71,13 @@ class ClearFoodWaste(Kitchen):
 
     def _check_success(self):
         food_in_colander = all(
-            [OU.check_obj_in_receptacle(self, f"food_{i}", "colander") for i in range(2)]
+            [
+                OU.check_obj_in_receptacle(self, f"food_{i}", "colander")
+                for i in range(2)
+            ]
         )
 
         gripper_far_food = all(
             [OU.gripper_obj_far(self, obj_name=f"food_{i}") for i in range(2)]
         )
-        return (food_in_colander
-            and gripper_far_food
-        )
+        return food_in_colander and gripper_far_food

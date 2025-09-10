@@ -43,7 +43,7 @@ class MixedFruitPlatter(Kitchen):
 
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
-        
+
         self.dining_table = self.register_fixture_ref(
             "dining_table",
             dict(id=FixtureType.DINING_COUNTER, ref=self.stool1),
@@ -55,7 +55,7 @@ class MixedFruitPlatter(Kitchen):
         ep_meta = super().get_ep_meta()
         fruit1 = self.get_obj_lang("fruit1")
         fruit2 = self.get_obj_lang("fruit2")
-        
+
         if fruit1 == fruit2:
             ep_meta["lang"] = (
                 f"Pick up each {fruit1} from the fridge and place one {fruit1} "
@@ -85,7 +85,7 @@ class MixedFruitPlatter(Kitchen):
                     size=(0.2, 0.2),
                     pos=(0, -1.0),
                     sample_region_kwargs=dict(
-                        rack_index=-2,    
+                        rack_index=-2,
                     ),
                 ),
             )
@@ -101,7 +101,7 @@ class MixedFruitPlatter(Kitchen):
                     size=(0.2, 0.2),
                     pos=(0, -1.0),
                     sample_region_kwargs=dict(
-                        rack_index=-1,    
+                        rack_index=-1,
                     ),
                 ),
             )
@@ -157,10 +157,18 @@ class MixedFruitPlatter(Kitchen):
         return cfgs
 
     def _check_success(self):
-        fruit1_on_plate1 = OU.check_obj_in_receptacle(self, "fruit1", "plate1_container")
-        fruit1_on_plate2 = OU.check_obj_in_receptacle(self, "fruit1", "plate2_container")
-        fruit2_on_plate1 = OU.check_obj_in_receptacle(self, "fruit2", "plate1_container")
-        fruit2_on_plate2 = OU.check_obj_in_receptacle(self, "fruit2", "plate2_container")
+        fruit1_on_plate1 = OU.check_obj_in_receptacle(
+            self, "fruit1", "plate1_container"
+        )
+        fruit1_on_plate2 = OU.check_obj_in_receptacle(
+            self, "fruit1", "plate2_container"
+        )
+        fruit2_on_plate1 = OU.check_obj_in_receptacle(
+            self, "fruit2", "plate1_container"
+        )
+        fruit2_on_plate2 = OU.check_obj_in_receptacle(
+            self, "fruit2", "plate2_container"
+        )
 
         fruits_on_different_plates = (fruit1_on_plate1 and fruit2_on_plate2) or (
             fruit1_on_plate2 and fruit2_on_plate1

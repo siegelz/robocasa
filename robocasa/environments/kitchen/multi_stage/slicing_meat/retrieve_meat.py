@@ -5,7 +5,7 @@ class RetrieveMeat(Kitchen):
     """
     Retrieve Meat: composite task for Slicing Meat activity.
     Simulates the task of retrieving meat from the fridge and placing it on the cutting board.
-    
+
     Steps:
         1. Pick the meat from the fridge.
         2. Place the meat on the cutting board.
@@ -25,7 +25,9 @@ class RetrieveMeat(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         meat_lang = self.get_obj_lang("meat")
-        ep_meta["lang"] = f"Retrieve the {meat_lang} from the fridge and place it on the cutting board."
+        ep_meta[
+            "lang"
+        ] = f"Retrieve the {meat_lang} from the fridge and place it on the cutting board."
 
         return ep_meta
 
@@ -39,7 +41,7 @@ class RetrieveMeat(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="meat",
@@ -54,7 +56,7 @@ class RetrieveMeat(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="dist_obj",
@@ -68,7 +70,7 @@ class RetrieveMeat(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="receptacle",
@@ -81,7 +83,7 @@ class RetrieveMeat(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="knife",
@@ -98,10 +100,8 @@ class RetrieveMeat(Kitchen):
         return cfgs
 
     def _check_success(self):
-        meat_on_board = OU.check_obj_in_receptacle(
-            self, "meat", "receptacle"
-        )
-        
+        meat_on_board = OU.check_obj_in_receptacle(self, "meat", "receptacle")
+
         gripper_far = OU.gripper_obj_far(self, "meat")
 
         return meat_on_board and gripper_far

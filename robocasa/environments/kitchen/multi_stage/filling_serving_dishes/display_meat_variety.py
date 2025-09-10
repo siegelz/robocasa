@@ -23,7 +23,7 @@ class DisplayMeatVariety(Kitchen):
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
 
         self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
-        
+
         self.dining_table = self.register_fixture_ref(
             "dining_table",
             dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
@@ -36,7 +36,7 @@ class DisplayMeatVariety(Kitchen):
         chicken_name = self.get_obj_lang("chicken")
         shrimp_name = self.get_obj_lang("shrimp")
         beef_name = self.get_obj_lang("beef")
-        
+
         ep_meta["lang"] = (
             f"Retrieve {chicken_name}, {shrimp_name}, and {beef_name} from the fridge "
             "and place them on the serving tray on the dining counter."
@@ -111,7 +111,7 @@ class DisplayMeatVariety(Kitchen):
                     ),
                     size=(0.6, 0.4),
                     pos=("ref", "ref"),
-                    rotation=(np.pi/2),
+                    rotation=(np.pi / 2),
                 ),
             )
         )
@@ -128,15 +128,15 @@ class DisplayMeatVariety(Kitchen):
         )
 
         gripper_far = (
-            OU.gripper_obj_far(self, "chicken") and 
-            OU.gripper_obj_far(self, "shrimp") and 
-            OU.gripper_obj_far(self, "beef")
+            OU.gripper_obj_far(self, "chicken")
+            and OU.gripper_obj_far(self, "shrimp")
+            and OU.gripper_obj_far(self, "beef")
         )
 
         return (
-            chicken_on_tray and 
-            shrimp_on_tray and 
-            beef_on_tray and 
-            tray_on_table and 
-            gripper_far
+            chicken_on_tray
+            and shrimp_on_tray
+            and beef_on_tray
+            and tray_on_table
+            and gripper_far
         )

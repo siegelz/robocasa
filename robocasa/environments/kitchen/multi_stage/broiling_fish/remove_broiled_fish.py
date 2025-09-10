@@ -1,6 +1,7 @@
 from robocasa.environments.kitchen.kitchen import *
 from robocasa.environments.kitchen.single_stage.kitchen_doors import OpenOven
 
+
 class RemoveBroiledFish(OpenOven):
     """
     Remove Broiled Fish: composite task for Broiling Fish activity.

@@ -37,10 +37,10 @@ class PlaceMeatInMarinade(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
         meat_lang = self.get_obj_lang("meat")
-        
-        ep_meta["lang"] = (
-            f"Retrieve the {meat_lang} from the fridge and place it on the saucepan with marinade on the stove. "
-        )
+
+        ep_meta[
+            "lang"
+        ] = f"Retrieve the {meat_lang} from the fridge and place it on the saucepan with marinade on the stove. "
         ep_meta["refs"] = ep_meta.get("refs", {})
         ep_meta["refs"]["knob"] = self.knob
         return ep_meta
@@ -105,8 +105,4 @@ class PlaceMeatInMarinade(Kitchen):
         meat_in_pan = OU.check_obj_in_receptacle(self, "meat", "pan")
         pan_on_stove = OU.check_obj_fixture_contact(self, "pan", self.stove)
 
-        return (
-            meat_in_pan
-            and gripper_meat_far
-            and pan_on_stove
-        )
+        return meat_in_pan and gripper_meat_far and pan_on_stove

@@ -51,10 +51,8 @@ class PortionYogurt(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
-        ep_meta["lang"] = (
-            "Place two yogurt containers on each plate."
-        )
+
+        ep_meta["lang"] = "Place two yogurt containers on each plate."
         return ep_meta
 
     def _setup_scene(self):

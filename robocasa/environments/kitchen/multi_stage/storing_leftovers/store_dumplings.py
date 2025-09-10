@@ -4,19 +4,19 @@ from robocasa.environments.kitchen.kitchen import *
 class StoreDumplings(Kitchen):
     """
     Store Dumplings: composite task for Storing Leftovers activity.
-    
+
     Simulates the process of storing dumplings from both a pan and a plate into containers on the dining counter.
     """
-    
+
     EXCLUDE_LAYOUTS = Kitchen.DINING_COUNTER_EXCLUDED_LAYOUTS
 
     def __init__(self, *args, **kwargs):
         kwargs["obj_registries"] = ["aigen", "objaverse", "lightwheel"]
         super().__init__(*args, **kwargs)
-    
+
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-                
+
         if "stool1" in self.fixture_refs:
             self.stool1 = self.fixture_refs["stool1"]
             self.stool2 = self.fixture_refs["stool2"]
@@ -39,10 +39,9 @@ class StoreDumplings(Kitchen):
 
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
-        
+
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter",
-            dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
         )
 
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
@@ -54,7 +53,7 @@ class StoreDumplings(Kitchen):
         else:
             self.plate_for_3 = self.rng.choice(plate_choices)
             self.plate_for_4 = self.rng.choice(plate_choices)
-        
+
         self.init_robot_base_ref = self.dining_counter
 
     def get_ep_meta(self):
@@ -62,20 +61,20 @@ class StoreDumplings(Kitchen):
 
         ep_meta["plate_for_3"] = self.plate_for_3
         ep_meta["plate_for_4"] = self.plate_for_4
-        
+
         ep_meta["lang"] = (
             f"Place two dumplings into each of the tupperware containers "
             f"and then place the containers in the fridge."
         )
         return ep_meta
-    
+
     def _setup_scene(self):
         super()._setup_scene()
         self.fridge.open_door(self)
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="dumpling_plate1",
@@ -107,7 +106,7 @@ class StoreDumplings(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="dumpling1",
@@ -118,7 +117,7 @@ class StoreDumplings(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="dumpling2",
@@ -185,19 +184,17 @@ class StoreDumplings(Kitchen):
                 ),
             )
         )
-        
+
         return cfgs
 
     def _check_success(self):
         dumplings = ["dumpling1", "dumpling2", "dumpling3", "dumpling4"]
 
         count_in_t1 = sum(
-            OU.check_obj_in_receptacle(self, d, "tupperware1")
-            for d in dumplings
+            OU.check_obj_in_receptacle(self, d, "tupperware1") for d in dumplings
         )
         count_in_t2 = sum(
-            OU.check_obj_in_receptacle(self, d, "tupperware2")
-            for d in dumplings
+            OU.check_obj_in_receptacle(self, d, "tupperware2") for d in dumplings
         )
         # each container must have exactly 2 dumplings
         containers_ok = (count_in_t1 == 2) and (count_in_t2 == 2)
@@ -207,8 +204,6 @@ class StoreDumplings(Kitchen):
         fridge_ok = t1_in_fridge and t2_in_fridge
 
         all_objects = dumplings + ["tupperware1", "tupperware2"]
-        gripper_far = all(
-            OU.gripper_obj_far(self, obj_name=obj) for obj in all_objects
-        )
+        gripper_far = all(OU.gripper_obj_far(self, obj_name=obj) for obj in all_objects)
 
         return containers_ok and fridge_ok and gripper_far

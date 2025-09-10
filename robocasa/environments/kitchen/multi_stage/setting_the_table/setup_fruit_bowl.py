@@ -22,10 +22,10 @@ class SetupFruitBowl(Kitchen):
         super()._setup_kitchen_references()
 
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter", dict(id=FixtureType.DINING_COUNTER)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
-        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL, ref=self.fridge))
 
         self.init_robot_base_ref = self.fridge
 
@@ -35,9 +35,9 @@ class SetupFruitBowl(Kitchen):
         fruit1_lang = self.get_obj_lang("fruit1")
         fruit2_lang = self.get_obj_lang("fruit2")
 
-        ep_meta["lang"] = (
-            f"Retrieve the {fruit1_lang} and {fruit2_lang} from the fridge and place them into the bowl on the dining table."
-        )
+        ep_meta[
+            "lang"
+        ] = f"Retrieve the {fruit1_lang} and {fruit2_lang} from the fridge and place them into the bowl on the dining table."
         return ep_meta
 
     def _setup_scene(self):

@@ -25,16 +25,14 @@ class SetupSodaBowl(Kitchen):
             "dining_counter",
             dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
-        self.fridge = self.register_fixture_ref(
-            "fridge", dict(id=FixtureType.FRIDGE)
-        )
+        self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.init_robot_base_ref = self.fridge
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Open the fridge, grab two sodas, and place both sodas inside the bowl with ice on the dining counter."
-        )
+        ep_meta[
+            "lang"
+        ] = "Open the fridge, grab two sodas, and place both sodas inside the bowl with ice on the dining counter."
         return ep_meta
 
     def _setup_scene(self):
@@ -66,7 +64,7 @@ class SetupSodaBowl(Kitchen):
                 placement=dict(
                     object="ice_bowl",
                     size=(1.0, 1.0),
-                )
+                ),
             )
         )
 
@@ -78,7 +76,7 @@ class SetupSodaBowl(Kitchen):
                 placement=dict(
                     object="ice_bowl",
                     size=(1.0, 1.0),
-                )
+                ),
             )
         )
 
@@ -90,10 +88,10 @@ class SetupSodaBowl(Kitchen):
                 placement=dict(
                     object="ice_bowl",
                     size=(1.0, 1.0),
-                )
+                ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="soda1",
@@ -108,7 +106,7 @@ class SetupSodaBowl(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="soda2",
@@ -116,14 +114,14 @@ class SetupSodaBowl(Kitchen):
                 placement=dict(
                     fixture=self.fridge,
                     sample_region_kwargs=dict(
-                         rack_index=-2,
+                        rack_index=-2,
                     ),
                     size=(0.50, 0.20),
                     pos=(0, -1.0),
                 ),
             )
         )
-        
+
         return cfgs
 
     def _check_success(self):
@@ -135,20 +133,17 @@ class SetupSodaBowl(Kitchen):
 
         if not soda2_in_bowl:
             return False
-                
+
         bowl_on_dining_counter = OU.check_obj_fixture_contact(
             self, "ice_bowl", self.dining_counter
         )
-        
+
         gripper_far = (
-            OU.gripper_obj_far(self, obj_name="soda1", th=0.15) and
-            OU.gripper_obj_far(self, obj_name="soda2", th=0.15) and
-            OU.gripper_obj_far(self, obj_name="ice_bowl", th=0.15)
+            OU.gripper_obj_far(self, obj_name="soda1", th=0.15)
+            and OU.gripper_obj_far(self, obj_name="soda2", th=0.15)
+            and OU.gripper_obj_far(self, obj_name="ice_bowl", th=0.15)
         )
 
         return (
-            soda1_in_bowl and 
-            soda2_in_bowl and 
-            bowl_on_dining_counter and 
-            gripper_far
+            soda1_in_bowl and soda2_in_bowl and bowl_on_dining_counter and gripper_far
         )

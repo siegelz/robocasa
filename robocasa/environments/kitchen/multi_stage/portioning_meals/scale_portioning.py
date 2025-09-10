@@ -23,20 +23,16 @@ class ScalePortioning(Kitchen):
 
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
-        
-        self.stool = self.register_fixture_ref(
-            "stool", dict(id=FixtureType.STOOL)
-        )
+
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
             "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
-        self.fridge = self.register_fixture_ref(
-            "fridge", dict(id=FixtureType.FRIDGE)
-        )
+        self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.counter = self.register_fixture_ref(
             "counter", dict(id=FixtureType.COUNTER, ref=self.fridge)
         )
-        
+
         self.init_robot_base_ref = self.fridge
 
     def get_ep_meta(self):
@@ -122,8 +118,12 @@ class ScalePortioning(Kitchen):
         meat_on_scale = OU.check_obj_in_receptacle(self, "meat", "digital_scale")
         meat_on_plate = OU.check_obj_in_receptacle(self, "meat", "plate")
         gripper_far_from_meat_on_scale = OU.gripper_obj_far(self, "meat", th=0.1)
-                
-        if meat_on_scale and not self.scale_wait_complete and gripper_far_from_meat_on_scale:
+
+        if (
+            meat_on_scale
+            and not self.scale_wait_complete
+            and gripper_far_from_meat_on_scale
+        ):
             self.scale_wait_counter += 1
             if self.scale_wait_counter >= 100:
                 self.scale_wait_complete = True

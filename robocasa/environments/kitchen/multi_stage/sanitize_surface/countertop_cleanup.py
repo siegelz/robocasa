@@ -5,12 +5,12 @@ class CountertopCleanup(Kitchen):
     """
     Countertop Cleanup: composite task for Sanitize Surface activity.
 
-    Simulates the task of cleaning the countertop.
+    Simulates the task of cleaning the countertop by organizing items into their proper storage locations.
 
     Steps:
-        Pick the fruit and vegetable from the counter and place it in the cabinet.
-        Then, open the drawer and pick the cleaner and sponge from the drawer and
-        place it on the counter.
+        1. Place the utensil from the counter into the drawer
+        2. Place the receptacle from the counter into the cabinet
+        3. Place the bowl of food from the counter into the fridge
     """
 
     def __init__(self, *args, **kwargs):
@@ -19,123 +19,120 @@ class CountertopCleanup(Kitchen):
     def _setup_kitchen_references(self):
 
         super()._setup_kitchen_references()
-        self.cab = self.register_fixture_ref("cab", dict(id=FixtureType.CABINET))
+        self.cab = self.register_fixture_ref(
+            "cab", dict(id=FixtureType.CABINET_WITH_DOOR)
+        )
+        self.counter = self.register_fixture_ref(
+            "counter", dict(id=FixtureType.COUNTER, ref=self.cab, size=(0.8, 0.5))
+        )
         self.drawer = self.register_fixture_ref(
             "drawer", dict(id=FixtureType.TOP_DRAWER, ref=self.cab)
         )
-        self.counter = self.register_fixture_ref(
-            "counter", dict(id=FixtureType.COUNTER, ref=self.cab)
-        )
-
-        self.init_robot_base_ref = self.drawer
+        self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
+        self.init_robot_base_ref = self.counter
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
+
+        utensil_name = self.get_obj_lang("utensil")
+        receptacle_name = self.get_obj_lang("receptacle")
+        food1_name = self.get_obj_lang("food1")
+        food2_name = self.get_obj_lang("food2")
+
+        if food1_name == food2_name:
+            food_text = f"{food1_name}s"
+        else:
+            food_text = f"{food1_name} and {food2_name}"
+
         ep_meta["lang"] = (
-            "Pick the fruit and vegetable from the counter and place them in the cabinet. "
-            "Then open the drawer and pick the cleaner and sponge from the drawer and place them on the counter."
+            f"Clean up the countertop by placing items away. "
+            f"Place the {utensil_name} in the open drawer. "
+            f"Place the {receptacle_name} in the open cabinet. "
+            f"Place the bowl with the {food_text} in the fridge."
         )
         return ep_meta
 
     def _setup_scene(self):
-        """
-        Resets simulation internal configurations.
-        """
-
         super()._setup_scene()
         self.cab.open_door(env=self)
+        self.fridge.open_door(env=self)
+        self.drawer.open_door(env=self)
 
     def _get_obj_cfgs(self):
         cfgs = []
-        # objects appear on different sides
-        direction = self.rng.choice([1.0, -1.0])
 
         cfgs.append(
             dict(
-                name="obj",
-                obj_groups=("spray", "bar_soap", "soap_dispenser"),
-                graspable=True,
-                placement=dict(
-                    fixture=self.drawer,
-                    size=(0.3, 0.3),
-                    pos=(-1.0 * direction, -0.5),
-                    rotation=np.pi / 2,
-                    rotation_axis="x",
-                ),
-            )
-        )
-
-        cfgs.append(
-            dict(
-                name="obj2",
-                obj_groups="sponge",
-                graspable=True,
-                placement=dict(
-                    fixture=self.drawer,
-                    size=(0.3, 0.3),
-                    pos=(1.0 * direction, -0.5),
-                ),
-            )
-        ),
-
-        cfgs.append(
-            dict(
-                name="obj3",
-                obj_groups=("fruit"),
+                name="food_bowl",
+                obj_groups="bowl",
                 graspable=True,
                 placement=dict(
                     fixture=self.counter,
                     sample_region_kwargs=dict(
                         ref=self.cab,
                     ),
-                    size=(0.60, 0.30),
-                    pos=(0.0, -1.0),
-                    offset=(0.0, 0.10),
+                    size=(0.5, 0.35),
+                    pos=("ref", -1.0),
                 ),
             )
         )
 
         cfgs.append(
             dict(
-                name="obj4",
-                obj_groups=("vegetable"),
+                name="receptacle",
+                obj_groups="receptacle",
+                exclude_obj_groups=("pitcher"),
                 graspable=True,
                 placement=dict(
                     fixture=self.counter,
-                    sample_region_kwargs=dict(
-                        ref=self.cab,
-                    ),
-                    size=(0.60, 0.30),
-                    pos=(0.0, -1.0),
-                    offset=(0.0, 0.10),
+                    reuse_region_from="food_bowl",
+                    size=(1.0, 0.4),
+                    pos=(0, -1.0),
+                    rotation=0,
                 ),
             )
         )
 
         cfgs.append(
             dict(
-                name="distr_counter",
-                obj_groups="all",
+                name="utensil",
+                obj_groups=("spoon", "fork", "knife", "wooden_spoon"),
+                object_scale=[1, 1, 2.5],
+                init_robot_here=True,
                 placement=dict(
                     fixture=self.counter,
-                    sample_region_kwargs=dict(
-                        ref=self.cab,
-                    ),
-                    size=(1.0, 0.30),
-                    pos=(0.0, 1.0),
+                    reuse_region_from="food_bowl",
+                    size=(1.0, 0.4),
+                    pos=(0, -1.0),
+                    rotation=0,
                 ),
             )
         )
 
         cfgs.append(
             dict(
-                name="distr_cab",
-                obj_groups="all",
+                name="food1",
+                obj_groups=("vegetable", "cooked_food", "meat"),
+                exclude_obj_groups=("kebab_skewer"),
+                graspable=True,
+                fridgable=True,
                 placement=dict(
-                    fixture=self.cab,
-                    size=(1.0, 0.20),
-                    pos=(0.0, 1.0),
-                    offset=(0.0, 0.0),
+                    object="food_bowl",
+                    size=(1.0, 1.0),
+                ),
+            )
+        )
+
+        cfgs.append(
+            dict(
+                name="food2",
+                obj_groups=("vegetable", "cooked_food", "meat"),
+                exclude_obj_groups=("kebab_skewer"),
+                graspable=True,
+                fridgable=True,
+                placement=dict(
+                    object="food_bowl",
+                    size=(1.0, 1.0),
                 ),
             )
         )
@@ -143,12 +140,27 @@ class CountertopCleanup(Kitchen):
         return cfgs
 
     def _check_success(self):
-        gripper_obj_far = OU.gripper_obj_far(self) and OU.gripper_obj_far(self, "obj3")
-        objs_on_counter = OU.check_obj_fixture_contact(
-            self, "obj", self.counter
-        ) and OU.check_obj_fixture_contact(self, "obj2", self.counter)
-        objs_inside_cab = OU.obj_inside_of(self, "obj3", self.cab) and OU.obj_inside_of(
-            self, "obj4", self.cab
+        utensil_in_drawer = OU.obj_inside_of(
+            self, "utensil", self.drawer
+        ) and not OU.check_obj_any_counter_contact(self, "utensil")
+
+        receptacle_in_cabinet = OU.obj_inside_of(self, "receptacle", self.cab)
+        food1_in_bowl = OU.check_obj_in_receptacle(self, "food1", "food_bowl")
+        food2_in_bowl = OU.check_obj_in_receptacle(self, "food2", "food_bowl")
+        food_bowl_in_fridge = self.fridge.check_rack_contact(
+            self, "food_bowl", compartment="fridge"
         )
 
-        return gripper_obj_far and objs_inside_cab and objs_on_counter
+        gripper_far = all(
+            OU.gripper_obj_far(self, obj)
+            for obj in ["utensil", "receptacle", "food_bowl"]
+        )
+
+        return (
+            utensil_in_drawer
+            and receptacle_in_cabinet
+            and food1_in_bowl
+            and food2_in_bowl
+            and food_bowl_in_fridge
+            and gripper_far
+        )

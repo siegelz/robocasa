@@ -5,13 +5,14 @@ class SetUpCuttingStation(Kitchen):
     """
     Set Up Cutting Station: composite task for Slicing Meat activity.
     Simulates the task of setting up a cutting station.
-    
+
     Steps:
         1. Move the meat to the cutting board.
         2. Pick the knife to the cutting board from the drawer.
 
     """
-    #I found that sliding the cutting board off the counter slightly to pick it up to be easiest.
+
+    # I found that sliding the cutting board off the counter slightly to pick it up to be easiest.
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,7 +30,9 @@ class SetUpCuttingStation(Kitchen):
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
 
-        ep_meta["lang"] = f"Pick up the knife from the drawer and place it on the cutting board. Then place the meat from the plate to the cutting board."
+        ep_meta[
+            "lang"
+        ] = f"Pick up the knife from the drawer and place it on the cutting board. Then place the meat from the plate to the cutting board."
 
         return ep_meta
 
@@ -42,7 +45,7 @@ class SetUpCuttingStation(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="receptacle",
@@ -55,7 +58,7 @@ class SetUpCuttingStation(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="knife",
@@ -65,11 +68,11 @@ class SetUpCuttingStation(Kitchen):
                     fixture=self.drawer,
                     size=(0.5, 0.35),
                     pos=(0, -1.0),
-                    offset=(0, 0.10)
+                    offset=(0, 0.10),
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="meat",
@@ -80,20 +83,20 @@ class SetUpCuttingStation(Kitchen):
                     size=(1, 0.4),
                     pos=(0.0, -1.0),
                     try_to_place_in="plate",
-                )
+                ),
             )
         )
 
         return cfgs
 
     def _check_success(self):
-        
-        meat_on_board = OU.check_obj_in_receptacle(
-            self, "meat", "receptacle"
-        )
-        
+
+        meat_on_board = OU.check_obj_in_receptacle(self, "meat", "receptacle")
+
         knife_on_board = OU.check_obj_in_receptacle(self, "knife", "receptacle")
-        
-        gripper_far = OU.gripper_obj_far(self, "knife") and OU.gripper_obj_far(self, "receptacle")
-        
+
+        gripper_far = OU.gripper_obj_far(self, "knife") and OU.gripper_obj_far(
+            self, "receptacle"
+        )
+
         return meat_on_board and knife_on_board and gripper_far

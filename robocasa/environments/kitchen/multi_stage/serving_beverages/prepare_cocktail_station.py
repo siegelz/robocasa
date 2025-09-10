@@ -27,9 +27,7 @@ class PrepareCocktailStation(Kitchen):
             "dining_counter",
             dict(id=FixtureType.DINING_COUNTER, ref=self.stool),
         )
-        self.fridge = self.register_fixture_ref(
-            "fridge", dict(id=FixtureType.FRIDGE)
-        )
+        self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.cabinet = self.register_fixture_ref(
             "cabinet", dict(id=FixtureType.CABINET)
         )
@@ -106,24 +104,30 @@ class PrepareCocktailStation(Kitchen):
         bowl_pos = self.sim.data.body_xpos[self.obj_body_id["bowl"]][:2]
         lemon_pos = self.sim.data.body_xpos[self.obj_body_id["lemon_wedge"]][:2]
         lemon_in_bowl = OU.check_obj_in_receptacle(self, "lemon_wedge", "bowl")
-        
-        liquor_on_counter = OU.check_obj_fixture_contact(self, "liquor", self.dining_counter)
-        glass_cup_on_counter = OU.check_obj_fixture_contact(self, "glass_cup", self.dining_counter)
-        
+
+        liquor_on_counter = OU.check_obj_fixture_contact(
+            self, "liquor", self.dining_counter
+        )
+        glass_cup_on_counter = OU.check_obj_fixture_contact(
+            self, "glass_cup", self.dining_counter
+        )
+
         liquor_pos = self.sim.data.body_xpos[self.obj_body_id["liquor"]][:2]
         glass_cup_pos = self.sim.data.body_xpos[self.obj_body_id["glass_cup"]][:2]
         liquor_near_bowl = np.linalg.norm(bowl_pos - liquor_pos) <= 0.35
         glass_cup_near_bowl = np.linalg.norm(bowl_pos - glass_cup_pos) <= 0.35
-        
+
         gripper_far = (
-            OU.gripper_obj_far(self, obj_name="lemon_wedge") and
-            OU.gripper_obj_far(self, obj_name="liquor") and
-            OU.gripper_obj_far(self, obj_name="glass_cup")
+            OU.gripper_obj_far(self, obj_name="lemon_wedge")
+            and OU.gripper_obj_far(self, obj_name="liquor")
+            and OU.gripper_obj_far(self, obj_name="glass_cup")
         )
 
         return (
-            lemon_in_bowl and
-            liquor_on_counter and liquor_near_bowl and
-            glass_cup_on_counter and glass_cup_near_bowl and
-            gripper_far
+            lemon_in_bowl
+            and liquor_on_counter
+            and liquor_near_bowl
+            and glass_cup_on_counter
+            and glass_cup_near_bowl
+            and gripper_far
         )

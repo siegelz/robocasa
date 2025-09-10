@@ -18,7 +18,12 @@ class DessertAssembly(Kitchen):
     def _setup_kitchen_references(self):
         super()._setup_kitchen_references()
         self.counter = self.register_fixture_ref(
-            "counter", dict(id=FixtureType.COUNTER_NON_CORNER, size=(0.9, 0.5), full_depth_region=True)
+            "counter",
+            dict(
+                id=FixtureType.COUNTER_NON_CORNER,
+                size=(0.9, 0.5),
+                full_depth_region=True,
+            ),
         )
         self.init_robot_base_ref = self.counter
 

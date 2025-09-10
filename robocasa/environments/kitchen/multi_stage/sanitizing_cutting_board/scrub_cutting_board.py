@@ -49,7 +49,7 @@ class ScrubCuttingBoard(Kitchen):
                 placement=dict(
                     fixture=self.counter,
                     sample_region_kwargs=dict(
-                        ref=self.sink, 
+                        ref=self.sink,
                         loc="left_right",
                     ),
                     size=(0.5, 0.5),
@@ -115,7 +115,5 @@ class ScrubCuttingBoard(Kitchen):
             sweep_range = np.linalg.norm(max_xy - min_xy)
 
         return (
-            (self.board_contact_timer >= 5)
-            and (sweep_range >= 0.1)
-            and gripper_obj_far
+            (self.board_contact_timer >= 5) and (sweep_range >= 0.1) and gripper_obj_far
         )

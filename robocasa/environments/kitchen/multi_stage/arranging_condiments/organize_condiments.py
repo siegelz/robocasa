@@ -21,7 +21,9 @@ class OrganizeCondiments(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = "There are various items on the counter. Only move the condiments/shakers into the cabinet."
+        ep_meta[
+            "lang"
+        ] = "There are various items on the counter. Only move the condiments/shakers into the cabinet."
         return ep_meta
 
     def _setup_scene(self):
@@ -30,7 +32,7 @@ class OrganizeCondiments(Kitchen):
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="condiment1",
@@ -94,20 +96,22 @@ class OrganizeCondiments(Kitchen):
         condiment1_in_cab = OU.obj_inside_of(self, "condiment1", self.cab)
         condiment2_in_cab = OU.obj_inside_of(self, "condiment2", self.cab)
         condiment3_in_cab = OU.obj_inside_of(self, "condiment3", self.cab)
-        
-        distractor_on_counter = OU.check_obj_fixture_contact(self, "distractor", self.counter)
-        
+
+        distractor_on_counter = OU.check_obj_fixture_contact(
+            self, "distractor", self.counter
+        )
+
         gripper_far = (
-            OU.gripper_obj_far(self, "condiment1") and 
-            OU.gripper_obj_far(self, "condiment2") and 
-            OU.gripper_obj_far(self, "condiment3") and 
-            OU.gripper_obj_far(self, "distractor")
+            OU.gripper_obj_far(self, "condiment1")
+            and OU.gripper_obj_far(self, "condiment2")
+            and OU.gripper_obj_far(self, "condiment3")
+            and OU.gripper_obj_far(self, "distractor")
         )
 
         return (
-            condiment1_in_cab and 
-            condiment2_in_cab and 
-            condiment3_in_cab and 
-            distractor_on_counter and 
-            gripper_far
+            condiment1_in_cab
+            and condiment2_in_cab
+            and condiment3_in_cab
+            and distractor_on_counter
+            and gripper_far
         )

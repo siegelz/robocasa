@@ -5,7 +5,7 @@ class ClearSinkArea(Kitchen):
     """
     Clear Sink Area: composite task for Cleaning Sink activity.
     Simulates the process of moving items away from the sink to allow for sink cleaning.
-    
+
     Steps:
         1. Move the mugs and bowl far away from the sink
     """
@@ -24,9 +24,7 @@ class ClearSinkArea(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        ep_meta["lang"] = (
-            "Clear the mugs and bowl far away from the sink."
-        )
+        ep_meta["lang"] = "Clear the mugs and bowl far away from the sink."
         return ep_meta
 
     def _setup_scene(self):
@@ -68,7 +66,7 @@ class ClearSinkArea(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="mug1",
@@ -84,7 +82,7 @@ class ClearSinkArea(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="mug2",
@@ -102,7 +100,7 @@ class ClearSinkArea(Kitchen):
         )
 
         return cfgs
-    
+
     def _close_to_sink(self, obj_name, dist=1):
         obj = self.objects[obj_name]
         food = self.objects["food"]
@@ -111,12 +109,17 @@ class ClearSinkArea(Kitchen):
 
         obj_dist = np.linalg.norm(obj_pos - food_pos)
         return obj_dist < dist
-    
-    def _check_success(self):
-        dishes_close = (self._close_to_sink("mug1") or
-            self._close_to_sink("mug2") or self._close_to_sink("bowl"))
 
-        gripper_far_food = OU.gripper_obj_far(self, "mug1") and OU.gripper_obj_far(self, "mug2") and OU.gripper_obj_far(self, "bowl")       
-        return (not dishes_close
-            and gripper_far_food
+    def _check_success(self):
+        dishes_close = (
+            self._close_to_sink("mug1")
+            or self._close_to_sink("mug2")
+            or self._close_to_sink("bowl")
         )
+
+        gripper_far_food = (
+            OU.gripper_obj_far(self, "mug1")
+            and OU.gripper_obj_far(self, "mug2")
+            and OU.gripper_obj_far(self, "bowl")
+        )
+        return not dishes_close and gripper_far_food

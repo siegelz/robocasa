@@ -19,8 +19,7 @@ class MakeIceLemonade(Kitchen):
         super()._setup_kitchen_references()
         self.fridge = self.register_fixture_ref("fridge", dict(id=FixtureType.FRIDGE))
         self.counter = self.register_fixture_ref(
-            "counter",
-            dict(id=FixtureType.COUNTER, ref=self.fridge)
+            "counter", dict(id=FixtureType.COUNTER, ref=self.fridge)
         )
         self.init_robot_base_ref = self.fridge
 
@@ -127,12 +126,19 @@ class MakeIceLemonade(Kitchen):
         return cfgs
 
     def _check_success(self):
-        lemon_in_cup = OU.check_obj_in_receptacle(self, "lemon_wedge", "glass_cup", th=0.5)
+        lemon_in_cup = OU.check_obj_in_receptacle(
+            self, "lemon_wedge", "glass_cup", th=0.5
+        )
         ice1_in_cup = OU.check_obj_in_receptacle(self, "ice_cube1", "glass_cup", th=0.5)
         ice2_in_cup = OU.check_obj_in_receptacle(self, "ice_cube2", "glass_cup", th=0.5)
         ice_in_cup = ice1_in_cup or ice2_in_cup
         gripper_far_lemon = OU.gripper_obj_far(self, "lemon_wedge", th=0.15)
-        gripper_far_ice = all([OU.gripper_obj_far(self, "ice_cube1", th=0.15), OU.gripper_obj_far(self, "ice_cube2", th=0.15)])
+        gripper_far_ice = all(
+            [
+                OU.gripper_obj_far(self, "ice_cube1", th=0.15),
+                OU.gripper_obj_far(self, "ice_cube2", th=0.15),
+            ]
+        )
 
         success = lemon_in_cup and ice_in_cup and gripper_far_lemon and gripper_far_ice
         return success

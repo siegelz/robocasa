@@ -739,6 +739,8 @@ def get_obj_lang(env, obj_name="obj", get_preposition=False):
         lang = "oil/vinegar bottle"
     elif lang == "salt and pepper shaker":
         lang = "salt/pepper shaker"
+    elif lang == "jug wide opening":
+        lang = "jug"
 
     if not get_preposition:
         return lang

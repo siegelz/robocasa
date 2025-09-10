@@ -25,15 +25,15 @@ class OrganizeMetallicUtensils(Kitchen):
         self.drawer = self.register_fixture_ref(
             "drawer", dict(id=FixtureType.TOP_DRAWER)
         )
-        self.stool = self.register_fixture_ref(
-            "stool", dict(id=FixtureType.STOOL)
-        )
+        self.stool = self.register_fixture_ref("stool", dict(id=FixtureType.STOOL))
         self.dining_counter = self.register_fixture_ref(
             "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool)
         )
 
         if "refs" in self._ep_meta:
-            self.third_utensil_is_metallic = self._ep_meta["refs"]["third_utensil_is_metallic"]
+            self.third_utensil_is_metallic = self._ep_meta["refs"][
+                "third_utensil_is_metallic"
+            ]
         else:
             self.third_utensil_is_metallic = self.rng.random() > 0.5
 

@@ -112,9 +112,11 @@ from robocasa.environments.kitchen.multi_stage.broiling_fish.toaster_oven_broil_
 from robocasa.environments.kitchen.multi_stage.broiling_fish.wash_fish import (
     WashFish,
 )
+from robocasa.environments.kitchen.multi_stage.chopping_food.arrange_cutting_fruits import (
+    ArrangeCuttingFruits,
+)
 from robocasa.environments.kitchen.multi_stage.chopping_food.arrange_vegetables import (
     ArrangeVegetables,
-    ArrangeVegetablesSimple,
 )
 from robocasa.environments.kitchen.multi_stage.chopping_food.bread_setup_slicing import (
     BreadSetupSlicing,
@@ -352,6 +354,9 @@ from robocasa.environments.kitchen.multi_stage.managing_freezer_space.separate_f
 from robocasa.environments.kitchen.multi_stage.measuring_ingredients.choose_measuring_cup import (
     ChooseMeasuringCup,
 )
+from robocasa.environments.kitchen.multi_stage.measuring_ingredients.organize_measuring_cups import (
+    OrganizeMeasuringCups,
+)
 from robocasa.environments.kitchen.multi_stage.measuring_ingredients.weigh_ingredients import (
     WeighIngredients,
 )
@@ -554,6 +559,9 @@ from robocasa.environments.kitchen.multi_stage.restocking_supplies.restock_sink_
 from robocasa.environments.kitchen.multi_stage.restocking_supplies.stocking_breakfast_foods import (
     StockingBreakfastFoods,
 )
+from robocasa.environments.kitchen.multi_stage.sanitize_surface.arrange_sink_sanitization import (
+    ArrangeSinkSanitization,
+)
 from robocasa.environments.kitchen.multi_stage.sanitize_surface.clean_microwave import (
     CleanMicrowave,
 )
@@ -562,9 +570,6 @@ from robocasa.environments.kitchen.multi_stage.sanitize_surface.countertop_clean
 )
 from robocasa.environments.kitchen.multi_stage.sanitize_surface.prep_for_sanitizing import (
     PrepForSanitizing,
-)
-from robocasa.environments.kitchen.multi_stage.sanitize_surface.push_utensils_to_sink import (
-    PushUtensilsToSink,
 )
 from robocasa.environments.kitchen.multi_stage.sanitizing_cutting_board.remove_cutting_board_items import (
     RemoveCuttingBoardItems,
@@ -692,6 +697,15 @@ from robocasa.environments.kitchen.multi_stage.slicing_meat.clean_board import (
 from robocasa.environments.kitchen.multi_stage.slicing_meat.set_up_cutting_station import (
     SetUpCuttingStation,
 )
+from robocasa.environments.kitchen.multi_stage.slow_cooking.add_to_soup_pot import (
+    AddToSoupPot,
+)
+from robocasa.environments.kitchen.multi_stage.slow_cooking.begin_slow_cooking import (
+    BeginSlowCooking,
+)
+from robocasa.environments.kitchen.multi_stage.slow_cooking.stop_slow_cooking import (
+    StopSlowCooking,
+)
 from robocasa.environments.kitchen.multi_stage.simmering_sauces.turn_off_simmered_sauce_heat import (
     TurnOffSimmeredSauceHeat,
 )
@@ -718,6 +732,15 @@ from robocasa.environments.kitchen.multi_stage.steaming_food.steam_in_microwave 
 )
 from robocasa.environments.kitchen.multi_stage.steaming_food.steam_vegetables import (
     SteamVegetables,
+)
+from robocasa.environments.kitchen.multi_stage.steaming_vegetables.prepare_vegies_for_steaming import (
+    PrepareVeggiesForSteaming,
+)
+from robocasa.environments.kitchen.multi_stage.steaming_vegetables.remove_steamed_vegetables import (
+    RemoveSteamedVegetables,
+)
+from robocasa.environments.kitchen.multi_stage.steaming_vegetables.steam_vegies_with_water import (
+    SteamVeggiesWithWater,
 )
 from robocasa.environments.kitchen.multi_stage.storing_leftovers.freeze_cooked_food import (
     FreezeCookedFood,
@@ -921,7 +944,6 @@ from robocasa.environments.kitchen.single_stage.kitchen_pnp import (
     PnPCounterToStove,
     PnPStoveToCounter,
     PnPCounterToOven,
-    PnPOvenToCounter,
     PnPToasterToCounter,
     PnPCounterToToasterOven,
     PnPToasterOvenToCounter,

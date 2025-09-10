@@ -26,16 +26,14 @@ class PlaceBeveragesTogether(Kitchen):
 
     def get_ep_meta(self):
         ep_meta = super().get_ep_meta()
-        
-        ep_meta["lang"] = (
-            f"Place the drinks on the dining counter in a tight cluster."
-        )
+
+        ep_meta["lang"] = f"Place the drinks on the dining counter in a tight cluster."
 
         return ep_meta
 
     def _get_obj_cfgs(self):
         cfgs = []
-        
+
         cfgs.append(
             dict(
                 name="alcohol",
@@ -48,7 +46,7 @@ class PlaceBeveragesTogether(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="juice",
@@ -63,7 +61,7 @@ class PlaceBeveragesTogether(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="bottled_water",
@@ -77,7 +75,7 @@ class PlaceBeveragesTogether(Kitchen):
                 ),
             )
         )
-        
+
         cfgs.append(
             dict(
                 name="distractor_tong",
@@ -85,7 +83,7 @@ class PlaceBeveragesTogether(Kitchen):
                 placement=dict(
                     fixture=self.dining_counter,
                     size=(1.0, 1.0),
-                    rotation=(np.pi/2, np.pi/2),
+                    rotation=(np.pi / 2, np.pi / 2),
                     try_to_place_in="tray",
                 ),
             )
@@ -134,7 +132,8 @@ class PlaceBeveragesTogether(Kitchen):
             pi = drink_positions[name_i]
             dists = [
                 np.linalg.norm(pi - drink_positions[name_j])
-                for j, name_j in enumerate(drink_names) if j != i
+                for j, name_j in enumerate(drink_names)
+                if j != i
             ]
             if min(dists) > cluster_threshold:
                 all_clustered = False

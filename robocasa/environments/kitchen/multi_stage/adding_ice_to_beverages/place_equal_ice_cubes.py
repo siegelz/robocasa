@@ -43,8 +43,7 @@ class PlaceEqualIceCubes(Kitchen):
             self.fixture_refs["stool1"] = self.stool1
             self.fixture_refs["stool2"] = self.stool2
         self.dining_counter = self.register_fixture_ref(
-            "dining_counter",
-            dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
+            "dining_counter", dict(id=FixtureType.DINING_COUNTER, ref=self.stool1)
         )
         self.init_robot_base_ref = self.dining_counter
 
@@ -124,7 +123,8 @@ class PlaceEqualIceCubes(Kitchen):
     def _check_success(self):
         def cup_ok(cup_name):
             in_cup = [
-                i for i in range(1, 5)
+                i
+                for i in range(1, 5)
                 if OU.check_obj_in_receptacle(self, f"ice_cube{i}", cup_name, th=0.5)
             ]
             if not in_cup:
@@ -147,6 +147,8 @@ class PlaceEqualIceCubes(Kitchen):
 
         cup1_ok = cup_ok("glass_cup1")
         cup2_ok = cup_ok("glass_cup2")
-        gripper_far = all(OU.gripper_obj_far(self, f"ice_cube{i}", th=0.15) for i in range(1, 5))
+        gripper_far = all(
+            OU.gripper_obj_far(self, f"ice_cube{i}", th=0.15) for i in range(1, 5)
+        )
 
         return cup1_ok and cup2_ok and gripper_far

@@ -32,15 +32,15 @@ class PackFruitContainer(Kitchen):
         fruit0_lang = self.get_obj_lang("fruit0")
         fruit1_lang = self.get_obj_lang("fruit1")
         container_lang = self.get_obj_lang("tupperware")
-        
+
         if fruit0_lang == fruit1_lang:
-            ep_meta["lang"] = (
-                f"Pick up both {fruit0_lang}s from the fridge and place them inside the {container_lang} on the counter."
-            )
+            ep_meta[
+                "lang"
+            ] = f"Pick up both {fruit0_lang}s from the fridge and place them inside the {container_lang} on the counter."
         else:
-            ep_meta["lang"] = (
-                f"Pick the {fruit0_lang} and {fruit1_lang} from the fridge and place them inside the {container_lang} on the counter."
-            )
+            ep_meta[
+                "lang"
+            ] = f"Pick the {fruit0_lang} and {fruit1_lang} from the fridge and place them inside the {container_lang} on the counter."
         return ep_meta
 
     def _get_obj_cfgs(self):
@@ -57,7 +57,7 @@ class PackFruitContainer(Kitchen):
                     pos=(0, -1.0),
                     sample_region_kwargs=dict(
                         rack_index=-1,
-                    )
+                    ),
                 ),
             )
         )
@@ -72,7 +72,7 @@ class PackFruitContainer(Kitchen):
                     pos=(0, -1.0),
                     sample_region_kwargs=dict(
                         rack_index=-2,
-                    )
+                    ),
                 ),
             )
         )

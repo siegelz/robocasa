@@ -34,7 +34,7 @@ class PackIdenticalLunches(Kitchen):
         ep_meta = super().get_ep_meta()
         veg_lang = self.get_obj_lang("vegetable0")
         meat_lang = self.get_obj_lang("meat0")
-        
+
         ep_meta["lang"] = (
             f"Place one {veg_lang} and one {meat_lang} in each tupperware on the nearby counter, "
             "to pack two identical lunches."
@@ -44,26 +44,30 @@ class PackIdenticalLunches(Kitchen):
     def _get_obj_cfgs(self):
         cfgs = []
 
-        all_veg_categories = get_cats_by_type(types=["vegetable"], obj_registries=self.obj_registries)
-        all_meat_categories = get_cats_by_type(types=["meat"], obj_registries=self.obj_registries)
-        
+        all_veg_categories = get_cats_by_type(
+            types=["vegetable"], obj_registries=self.obj_registries
+        )
+        all_meat_categories = get_cats_by_type(
+            types=["meat"], obj_registries=self.obj_registries
+        )
+
         # Filter for graspable vegetables
         veg_categories = []
         for cat in all_veg_categories:
             if cat in OBJ_CATEGORIES:
                 for reg in OBJ_CATEGORIES[cat]:
                     cat_meta = OBJ_CATEGORIES[cat][reg]
-                    if hasattr(cat_meta, 'graspable') and cat_meta.graspable:
+                    if hasattr(cat_meta, "graspable") and cat_meta.graspable:
                         veg_categories.append(cat)
                         break
-        
+
         # Filter for graspable meats (excluding shrimp)
         meat_categories = []
         for cat in all_meat_categories:
             if cat != "shrimp" and cat in OBJ_CATEGORIES:
                 for reg in OBJ_CATEGORIES[cat]:
                     cat_meta = OBJ_CATEGORIES[cat][reg]
-                    if hasattr(cat_meta, 'graspable') and cat_meta.graspable:
+                    if hasattr(cat_meta, "graspable") and cat_meta.graspable:
                         meat_categories.append(cat)
                         break
 
@@ -81,7 +85,7 @@ class PackIdenticalLunches(Kitchen):
                     pos=(-0.25, -1.0),
                     sample_region_kwargs=dict(
                         z_range=(1.0, 1.5),
-                    )
+                    ),
                 ),
             )
         )
@@ -96,7 +100,7 @@ class PackIdenticalLunches(Kitchen):
                     pos=(0.25, -1.0),
                     sample_region_kwargs=dict(
                         z_range=(1.0, 1.5),
-                    )
+                    ),
                 ),
             )
         )
@@ -111,7 +115,7 @@ class PackIdenticalLunches(Kitchen):
                     pos=(-0.25, -1.0),
                     sample_region_kwargs=dict(
                         z_range=(1.0, 1.5),
-                    )
+                    ),
                 ),
             )
         )
@@ -125,7 +129,7 @@ class PackIdenticalLunches(Kitchen):
                     pos=(0.25, -1.0),
                     sample_region_kwargs=dict(
                         z_range=(1.0, 1.5),
-                    )
+                    ),
                 ),
             )
         )
@@ -142,7 +146,7 @@ class PackIdenticalLunches(Kitchen):
                     ),
                     size=(1.5, 0.5),
                     pos=(-0.5, -1.0),
-                    rotation=(np.pi/2),
+                    rotation=(np.pi / 2),
                 ),
             )
         )
@@ -159,7 +163,7 @@ class PackIdenticalLunches(Kitchen):
                     reuse_region_from="tupperware0",
                     size=(1.5, 0.5),
                     pos=(0.5, -1.0),
-                    rotation=(np.pi/2),
+                    rotation=(np.pi / 2),
                 ),
             )
         )
