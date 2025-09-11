@@ -12,9 +12,9 @@ for task in list(SINGLE_STAGE_TASK_DATASETS.keys()) + list(
     MULTI_STAGE_TASK_DATASETS.keys()
 ):
     for split in ["train", "test"]:
-        for ds_type in ["human_raw", "mg_raw"]:
+        for ds_type in ["human_raw", "mg_raw", "mg_5x5_raw"]:
             ds_path = get_ds_path(task=task, split=split, ds_type=ds_type)
-            if ds_path is not None:
+            if ds_path is not None and os.path.exists(ds_path):
                 dataset_cands.append(ds_path)
 
 dataset_cands = sorted(dataset_cands)
@@ -46,14 +46,14 @@ print()
 command_list = []
 for ds in datasets:
     directory = os.path.dirname(ds)
-    command = f"python /mnt/amlfs-01/shared/robocasa_benchmark/misc/export_groot/stage1.py --num_procs 25 --dataset {ds}; python /mnt/amlfs-01/shared/robocasa_benchmark/misc/export_groot/stage2.py --directory {directory}"
+    command = f"python ~/code/export_groot/stage1.py --num_procs 24 --dataset {ds}; python ~/code/export_groot/stage2.py --directory {directory}"
     command_list.append(command)
     # print(command)
     # print()
 
 # random.shuffle(command_list)
 
-NUM_CHUNKS = len(datasets)
+NUM_CHUNKS = 4
 
 chunk_len = int(math.ceil(len(command_list) / NUM_CHUNKS))
 
@@ -68,6 +68,6 @@ for chunk_i in range(NUM_CHUNKS):
         end = len(command_list)
 
     this_chunk_commands = command_list[start:end]
-    print("; ".join(this_chunk_commands))
+    print("\n".join(this_chunk_commands))
     print()
     print()

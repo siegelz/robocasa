@@ -25,6 +25,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/CloseBlenderLid/20250822/mg/demo/2025-08-22-14-45-29",
             human_path="v0.5/train/atomic/CloseBlenderLid/20250822",
+            mg_5x5_path="v0.5/train/atomic/CloseBlenderLid/20250822/mg/demo/2025-09-07-23-11-23",
         ),
         test=dict(
             human_path="v0.5/test/atomic/CloseBlenderLid/20250822",
@@ -63,6 +64,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/CloseFridge/20250819/mg/demo/2025-08-20-21-53-31",
             human_path="v0.5/train/atomic/CloseFridge/20250819",
+            mg_5x5_path="v0.5/train/atomic/CloseFridge/20250819/mg/demo/2025-09-07-23-11-23",
         ),
         test=dict(
             human_path="v0.5/test/atomic/CloseFridge/20250816",
@@ -101,6 +103,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/CloseToasterOvenDoor/20250820/mg/demo/2025-08-20-21-54-20",
             human_path="v0.5/train/atomic/CloseToasterOvenDoor/20250820",
+            mg_5x5_path="v0.5/train/atomic/CloseToasterOvenDoor/20250820/mg/demo/2025-09-07-23-11-26",
         ),
         test=dict(
             human_path="v0.5/test/atomic/CloseToasterOvenDoor/20250818",
@@ -118,6 +121,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/CoffeeSetupMug/20250819/mg/demo/2025-08-20-21-54-35",
             human_path="v0.5/train/atomic/CoffeeSetupMug/20250819",
+            mg_5x5_path="v0.5/train/atomic/CoffeeSetupMug/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/CoffeeSetupMug/20250813",
@@ -144,6 +148,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/OpenCabinet/20250819/mg/demo/2025-08-20-21-54-43",
             human_path="v0.5/train/atomic/OpenCabinet/20250819",
+            mg_5x5_path="v0.5/train/atomic/OpenCabinet/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/OpenCabinet/20250813",
@@ -161,6 +166,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/OpenDrawer/20250819/mg/demo/2025-08-20-21-55-00",
             human_path="v0.5/train/atomic/OpenDrawer/20250819",
+            mg_5x5_path="v0.5/train/atomic/OpenDrawer/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/OpenDrawer/20250816",
@@ -206,6 +212,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/OpenStandMixerHead/20250820/mg/demo/2025-08-20-21-55-26",
             human_path="v0.5/train/atomic/OpenStandMixerHead/20250820",
+            mg_5x5_path="v0.5/train/atomic/OpenStandMixerHead/20250820/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/OpenStandMixerHead/20250818",
@@ -237,6 +244,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/PnPCounterToCabinet/20250819/mg/demo/2025-08-20-21-56-25",
             human_path="v0.5/train/atomic/PnPCounterToCabinet/20250819",
+            mg_5x5_path="v0.5/train/atomic/PnPCounterToCabinet/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/PnPCounterToCabinet/20250811",
@@ -282,6 +290,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/PnPCounterToStove/20250819/mg/demo/2025-08-20-22-33-04",
             human_path="v0.5/train/atomic/PnPCounterToStove/20250819",
+            mg_5x5_path="v0.5/train/atomic/PnPCounterToStove/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/PnPCounterToStove/20250818",
@@ -299,6 +308,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/PnPDrawerToCounter/20250820/mg/demo/2025-08-20-21-57-07",
             human_path="v0.5/train/atomic/PnPDrawerToCounter/20250820",
+            mg_5x5_path="v0.5/train/atomic/PnPDrawerToCounter/20250820/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/PnPDrawerToCounter/20250820",
@@ -330,6 +340,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/PnPSinkToCounter/20250819/mg/demo/2025-08-20-22-34-07",
             human_path="v0.5/train/atomic/PnPSinkToCounter/20250819",
+            mg_5x5_path="v0.5/train/atomic/PnPSinkToCounter/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/PnPSinkToCounter/20250813",
@@ -354,6 +365,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/PnPToasterToCounter/20250819/mg/demo/2025-08-21-09-48-26",
             human_path="v0.5/train/atomic/PnPToasterToCounter/20250819",
+            mg_5x5_path="v0.5/train/atomic/PnPToasterToCounter/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/PnPToasterToCounter/20250817",
@@ -371,6 +383,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/SlideDishwasherRack/20250820/mg/demo/2025-08-20-21-57-11",
             human_path="v0.5/train/atomic/SlideDishwasherRack/20250820",
+            mg_5x5_path="v0.5/train/atomic/SlideDishwasherRack/20250820/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/SlideDishwasherRack/20250820",
@@ -416,6 +429,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/TurnOffStove/20250819/mg/demo/2025-08-21-10-12-48",
             human_path="v0.5/train/atomic/TurnOffStove/20250819",
+            mg_5x5_path="v0.5/train/atomic/TurnOffStove/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/TurnOffStove/20250812",
@@ -433,6 +447,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/TurnOnElectricKettle/20250820/mg/demo/2025-08-21-09-59-45",
             human_path="v0.5/train/atomic/TurnOnElectricKettle/20250820",
+            mg_5x5_path="v0.5/train/atomic/TurnOnElectricKettle/20250820/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/TurnOnElectricKettle/20250817",
@@ -443,6 +458,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/TurnOnMicrowave/20250819/mg/demo/2025-08-21-12-09-53",
             human_path="v0.5/train/atomic/TurnOnMicrowave/20250819",
+            mg_5x5_path="v0.5/train/atomic/TurnOnMicrowave/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/TurnOnMicrowave/20250813",
@@ -453,6 +469,7 @@ SINGLE_STAGE_TASK_DATASETS = OrderedDict(
         train=dict(
             mg_path="v0.5/train/atomic/TurnOnSinkFaucet/20250819/mg/demo/2025-08-21-12-24-03",
             human_path="v0.5/train/atomic/TurnOnSinkFaucet/20250819",
+            mg_5x5_path="v0.5/train/atomic/TurnOnSinkFaucet/20250819/mg/demo/2025-09-08-10-33-13",
         ),
         test=dict(
             human_path="v0.5/test/atomic/TurnOnSinkFaucet/20250812",
@@ -2245,12 +2262,11 @@ def get_ds_path(task, ds_type, split="train", return_info=False):
         raise ValueError
 
     if ds_type in ["human_raw", "human_im"]:
-        # folder = ds_config["human_path"]
         folder = ds_config.get(split, {}).get("human_path")
     elif ds_type in ["mg_raw", "mg_im"]:
-        # mg dataset is not available for all tasks
-        # folder = ds_config.get("mg_path", None)
         folder = ds_config.get(split, {}).get("mg_path")
+    elif ds_type in ["mg_5x5_raw", "mg_5x5_im"]:
+        folder = ds_config.get(split, {}).get("mg_5x5_path")
     else:
         raise ValueError
 

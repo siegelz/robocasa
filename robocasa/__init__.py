@@ -65,11 +65,15 @@ from robocasa.environments.kitchen.multi_stage.baking_cookies_cakes.cookie_dough
 from robocasa.environments.kitchen.multi_stage.baking_cookies_cakes.cool_baked_cake import (
     CoolBakedCake,
 )
+from robocasa.environments.kitchen.multi_stage.baking_cookies_cakes.cool_baked_cookies import (
+    CoolBakedCookies,
+)
 from robocasa.environments.kitchen.multi_stage.baking_cookies_cakes.mix_cake_frosting import (
     MixCakeFrosting,
 )
 from robocasa.environments.kitchen.multi_stage.boiling.boil_pot import BoilPot
 from robocasa.environments.kitchen.multi_stage.boiling.boil_corn import BoilCorn
+from robocasa.environments.kitchen.multi_stage.boiling.boil_eggs import BoilEggs
 from robocasa.environments.kitchen.multi_stage.boiling.cool_kettle import CoolKettle
 from robocasa.environments.kitchen.multi_stage.boiling.fill_kettle import FillKettle
 from robocasa.environments.kitchen.multi_stage.boiling.heat_multiple_water import (
@@ -214,9 +218,6 @@ from robocasa.environments.kitchen.multi_stage.frying.assemble_cooking_array imp
 from robocasa.environments.kitchen.multi_stage.frying.distribute_steak_on_pans import (
     DistributeSteakOnPans,
 )
-from robocasa.environments.kitchen.multi_stage.frying.flip_sausage import (
-    FlipSausage,
-)
 from robocasa.environments.kitchen.multi_stage.frying.frying_pan_adjustment import (
     FryingPanAdjustment,
 )
@@ -225,9 +226,6 @@ from robocasa.environments.kitchen.multi_stage.frying.meal_prep_staging import (
 )
 from robocasa.environments.kitchen.multi_stage.frying.press_chicken import (
     PressChicken,
-)
-from robocasa.environments.kitchen.multi_stage.frying.rocking_kebab import (
-    RockingKebab,
 )
 from robocasa.environments.kitchen.multi_stage.frying.rotate_pan import (
     RotatePan,
@@ -239,6 +237,9 @@ from robocasa.environments.kitchen.multi_stage.garnishing_dishes.add_lemon_to_fi
 )
 from robocasa.environments.kitchen.multi_stage.garnishing_dishes.add_sugar_cubes import (
     AddSugarCubes,
+)
+from robocasa.environments.kitchen.multi_stage.garnishing_dishes.garnish_cake import (
+    GarnishCake,
 )
 from robocasa.environments.kitchen.multi_stage.garnishing_dishes.garnish_cupcake import (
     GarnishCupcake,
@@ -308,9 +309,6 @@ from robocasa.environments.kitchen.multi_stage.making_tea.lower_heat import (
 )
 from robocasa.environments.kitchen.multi_stage.making_tea.serve_tea import (
     ServeTea,
-)
-from robocasa.environments.kitchen.multi_stage.making_tea.stir_tea import (
-    StirTea,
 )
 from robocasa.environments.kitchen.multi_stage.making_tea.strainer_setup import (
     StrainerSetup,
@@ -498,6 +496,9 @@ from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_fruit_contai
 from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_identical_lunches import (
     PackIdenticalLunches,
 )
+from robocasa.environments.kitchen.multi_stage.packing_lunches.pack_snack import (
+    PackSnack,
+)
 from robocasa.environments.kitchen.multi_stage.preparing_hot_chocolate.add_marshmallow import (
     AddMarshmallow,
 )
@@ -525,6 +526,9 @@ from robocasa.environments.kitchen.multi_stage.preparing_sandwiches.toast_heatab
 from robocasa.environments.kitchen.multi_stage.reheating_food.heat_mug import HeatMug
 from robocasa.environments.kitchen.multi_stage.reheating_food.make_loaded_potato import (
     MakeLoadedPotato,
+)
+from robocasa.environments.kitchen.multi_stage.reheating_food.reheat_meat_on_stove import (
+    ReheatMeatOnStove,
 )
 from robocasa.environments.kitchen.multi_stage.reheating_food.simmering_sauce import (
     SimmeringSauce,
@@ -763,11 +767,11 @@ from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.draw
 from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.organize_cleaning_supplies import (
     OrganizeCleaningSupplies,
 )
-from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.pantry_mishap import (
-    PantryMishap,
+from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.place_breakfast_items_away import (
+    PlaceBreakfastItemsAway,
 )
-from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.shaker_shuffle import (
-    ShakerShuffle,
+from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.utensil_shuffle import (
+    UtensilShuffle,
 )
 from robocasa.environments.kitchen.multi_stage.tidying_cabinets_and_drawers.snack_sorting import (
     SnackSorting,
